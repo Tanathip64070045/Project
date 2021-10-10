@@ -1,6 +1,10 @@
 from tkinter import *
 import random
+<<<<<<< HEAD
 ken muraki
+=======
+
+>>>>>>> d7084a703629d511f0f822f2be7d5e08f66855c7
 def game():
     p1_stat = {'wins': 0, 'losses': 0, 'ties': 0}
 
