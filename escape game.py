@@ -1,8 +1,6 @@
 from tkinter import *
 import random
-bgxchbxgfhggdfhggdhdggddh
-boATATTT
-keneiei
+
 def game():
     p1_stat = {'wins': 0, 'losses': 0, 'ties': 0}
 
