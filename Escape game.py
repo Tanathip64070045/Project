@@ -14,7 +14,7 @@ class Soldier(pygame.sprite.Sprite):
     def __init__(self, x, y, scale):
         pygame.sprite.Sprite.__init__(self)
         img = pygame.image.load('0.png')
-        self.image = pygame.transform.scale(img, (int(100+scale), int(100+scale)))
+        self.image = pygame.transform.scale(img, (int(40), int(40)))
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
 
@@ -24,7 +24,7 @@ class Soldier(pygame.sprite.Sprite):
 
 
 player = Soldier(200, 200, 3)
-player2 = Soldier(400, 200, 3)
+
 
 
 
@@ -33,7 +33,7 @@ while run:
 
     
     player.draw()
-    player2.draw()
+    
 
     for event in pygame.event.get():
         #quit game
