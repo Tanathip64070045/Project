@@ -4,9 +4,9 @@ import pygame
 pygame.init() 																				
 screen = pygame.display.set_mode((1000,750)) 												
 pygame.display.set_caption("ESCAPE GAME") 													
-icon = pygame.image.load("icon.png")  														
+icon = pygame.image.load("picture/icon.png")  														
 pygame.display.set_icon(icon)    															
-player = pygame.image.load("ufo.png") 														
+player = pygame.image.load("picture/ufo.png") 														
 player1 = pygame.transform.scale(player,(40,40)) 											
 
 """ ตำแหน่งตัวละคร """
@@ -23,9 +23,9 @@ def down_bg():
 ######################    หน้าเกม   ##########################
 def intro():																				
 	"""หน้าเกม"""
-	bg_intro = pygame.image.load("bg_intro.gif")
-	bg1 = pygame.image.load("button.png")													
-	bg2 = pygame.image.load("start.png")
+	bg_intro = pygame.image.load("picture/bg_intro.gif")
+	bg1 = pygame.image.load("picture/button.png")													
+	bg2 = pygame.image.load("picture/start.png")
 	""" ปรับ sale """
 	bg_1 = pygame.transform.scale(bg1,(300,300))
 	bg_2 = pygame.transform.scale(bg2,(300,300))
