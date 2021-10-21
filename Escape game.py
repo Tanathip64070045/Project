@@ -26,9 +26,13 @@ def intro():
 	bg_intro = pygame.image.load("picture/bg_intro.gif")
 	bg1 = pygame.image.load("picture/button.png")													
 	bg2 = pygame.image.load("picture/start.png")
+	bg3 = pygame.image.load("picture/logout.png")
+	bg4 = pygame.image.load("picture/logout2.png")
 	""" ปรับ sale """
 	bg_1 = pygame.transform.scale(bg1,(300,300))
 	bg_2 = pygame.transform.scale(bg2,(300,300))
+	bg_3 = pygame.transform.scale(bg3,(100,100))
+	bg_4 = pygame.transform.scale(bg4,(100,100))
 	intro = True					
 	""" loop intro """
 	while intro:
@@ -38,14 +42,19 @@ def intro():
 				pygame.quit()
 				quit()
 				""" เมาส์ในการกด กลางหน้าจอ """
-			if mx > 361 and mx < 590 and my > 430 and my < 562:
-				screen.blit(bg_2,(320,347))
+			if mx > 320 and mx < 619 and my > 314 and my < 443:
+				screen.blit(bg_2,(320,230))
 			pygame.display.update()
-			if event.type == pygame.MOUSEBUTTONDOWN and mx > 361 and mx < 590 and my > 430 and my < 562:
+			if mx > 438 and mx < 532 and my > 530 and my < 619:
+				screen.blit(bg_4,(435,526))
+			pygame.display.update()
+			if event.type == pygame.MOUSEBUTTONDOWN and mx > 320 and mx < 619 and my > 314 and my < 443:
 				main()
+			if event.type == pygame.MOUSEBUTTONDOWN and mx > 438 and mx < 532 and my > 530 and my < 619:
+				quit()
 		screen.blit(bg_intro,(0,0))
-		screen.blit(bg_1,(320,347))
-		
+		screen.blit(bg_1,(320,230))
+		screen.blit(bg_3,(435,526))
 ######################  RUN GAME #########################
 def main():
 	"""RUN"""
