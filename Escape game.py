@@ -51,6 +51,7 @@ def intro():
 		screen.blit(bg_1,(320,230))
 		screen.blit(bg_3,(435,526))
 		
+		
 ######################  RUN GAME #########################
 def main():
 	"""RUN"""
