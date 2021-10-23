@@ -29,7 +29,7 @@ def intro():
 	bg_2 = pygame.transform.scale(bg2,(300,300))
 	bg_3 = pygame.transform.scale(bg3,(100,100))
 	bg_4 = pygame.transform.scale(bg4,(100,100))
-	bg_5 = pygame.transform.scale(bg5,(200,200))
+	bg_5 = pygame.transform.scale(bg5,(200,90))
 	intro = True					
 	""" loop intro """
 	while intro:
@@ -52,7 +52,7 @@ def intro():
 		screen.blit(bg_intro,(0,0))
 		screen.blit(bg_1,(320,230))
 		screen.blit(bg_3,(435,526))
-		screen.blit(bg_5,(0,0))
+		screen.blit(bg_5,(0,10))
 		
 ######################  RUN GAME #########################
 def main():
