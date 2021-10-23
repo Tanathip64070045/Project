@@ -1,4 +1,4 @@
-"""Escap game"""
+"""Escape game"""
 ###############  game set display  ############################
 import pygame 																				
 pygame.init() 																				
@@ -58,11 +58,11 @@ def intro():
 		screen.blit(bg_1,(415,587))
 		screen.blit(bg_3,(880,12))
 		screen.blit(bg_5,(6,12))
-		
+
 ######################  RUN GAME #########################
 def main():
 	"""RUN"""
-    
+
 	posX = 0         																		
 	posY = 750-40   																		
 	move = 2																				
@@ -74,7 +74,7 @@ def main():
 			if event.type == pygame.QUIT:
 				quit()																		
 
-		""" key ในการกด  """
+		""" key ในการกด """
 		keys = pygame.key.get_pressed() 													
 		if keys[pygame.K_a] and posX > 0: 													
 			posX -= move
@@ -87,4 +87,4 @@ def main():
 		screen.blit(player1,(posX, posY)) 													
 		pygame.display.update()   															
 #################### ฟังก์ชั้น ##################################
-intro()	
+intro()
