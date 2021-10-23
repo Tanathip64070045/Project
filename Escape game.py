@@ -8,12 +8,7 @@ icon = pygame.image.load("picture/icon.png")
 pygame.display.set_icon(icon)    															
 player = pygame.image.load("picture/ufo.png") 														
 player1 = pygame.transform.scale(player,(40,40)) 											
-
-""" ตำแหน่งตัวละคร """
-posX = 0         																			
-posY = 750-40  																				
-move = 2																																	
-
+																																	
 #################### bg หลังการเดิน 1 ครั้ง ######################
 def down_bg():
 	"""BG หลังการเดิน"""
