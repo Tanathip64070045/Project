@@ -52,7 +52,7 @@ def intro():
 		screen.blit(bg_intro,(0,0))
 		screen.blit(bg_1,(320,230))
 		screen.blit(bg_3,(435,526))
-		screen.blit(bg_5,(0,10))
+		screen.blit(bg_5,(6,12))
 		
 ######################  RUN GAME #########################
 def main():
