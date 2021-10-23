@@ -28,7 +28,7 @@ def intro():
 	""" ปรับ sale """
 	bg_1 = pygame.transform.scale(bg1,(150,100))
 	bg_2 = pygame.transform.scale(bg2,(150,100))
-	bg_3 = pygame.transform.scale(bg3,(100,90))
+	bg_3 = pygame.transform.scale(bg3,(100,100))
 	bg_4 = pygame.transform.scale(bg4,(100,100))
 	bg_5 = pygame.transform.scale(bg5,(200,90))
 	bg_6 = pygame.transform.scale(bg6,(200,90))
