@@ -6,8 +6,8 @@ screen = pygame.display.set_mode((1000,750))
 pygame.display.set_caption("ESCAPE GAME") 													
 icon = pygame.image.load("picture/icon.png")  														
 pygame.display.set_icon(icon)    															
-player = pygame.image.load("picture/ufo.png") 														
-player1 = pygame.transform.scale(player,(40,40)) 											
+player = pygame.image.load("picture/char.png") 														
+player1 = pygame.transform.scale(player,(50,50)) 											
 
 """ ตำแหน่งตัวละคร """
 posX = 0         																			
@@ -55,6 +55,7 @@ def intro():
 		screen.blit(bg_intro,(0,0))
 		screen.blit(bg_1,(320,230))
 		screen.blit(bg_3,(435,526))
+		
 ######################  RUN GAME #########################
 def main():
 	"""RUN"""
