@@ -7,7 +7,7 @@ pygame.display.set_caption("ESCAPE GAME")
 icon = pygame.image.load("picture/icon.png")  														
 pygame.display.set_icon(icon)    															
 player = pygame.image.load("picture/tjakchar.png") 														
-player1 = pygame.transform.scale(player,(80,80)) 											
+player1 = pygame.transform.scale(player,(40,40)) 											
 																																	
 #################### bg หลังการเดิน 1 ครั้ง ######################
 def down_bg():
@@ -59,7 +59,7 @@ def main():
 	"""RUN"""
     
 	posX = 0         																		
-	posY = 750-80   																		
+	posY = 750-40   																		
 	move = 2																				
 	""" loop รันเกม """
 	while True:
@@ -73,11 +73,11 @@ def main():
 		keys = pygame.key.get_pressed() 													
 		if keys[pygame.K_a] and posX > 0: 													
 			posX -= move
-		if keys[pygame.K_d] and posX < 1000 - 80: 											
+		if keys[pygame.K_d] and posX < 1000 - 40: 											
 			posX += move
 		if keys[pygame.K_w] and posY > 0: 													
 			posY -= move
-		if keys[pygame.K_s] and posY < 750 - 80: 											
+		if keys[pygame.K_s] and posY < 750 - 40: 											
 			posY += move
 		screen.blit(player1,(posX, posY)) 													
 		pygame.display.update()   															
