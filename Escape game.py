@@ -19,10 +19,10 @@ def down_bg():
 def intro():																				
 	"""หน้าเกม"""
 	bg_intro = pygame.image.load("picture/intro2.png")
-	bg1 = pygame.image.load("picture/button.png")													
-	bg2 = pygame.image.load("picture/start.png")
-	bg3 = pygame.image.load("picture/logout.png")
-	bg4 = pygame.image.load("picture/logout2.png")
+	bg1 = pygame.image.load("picture/StartN.png")													
+	bg2 = pygame.image.load("picture/StartP.png")
+	bg3 = pygame.image.load("picture/ExitN.png")
+	bg4 = pygame.image.load("picture/ExitP.png")
 	bg5 = pygame.image.load("picture/TJAK.png")
 	""" ปรับ sale """
 	bg_1 = pygame.transform.scale(bg1,(300,300))
