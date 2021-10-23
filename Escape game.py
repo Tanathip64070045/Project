@@ -18,7 +18,7 @@ def down_bg():
 ######################    หน้าเกม   ##########################
 def intro():																				
 	"""หน้าเกม"""
-	bg_intro = pygame.image.load("picture/bg_intro.gif")
+	bg_intro = pygame.image.load("picture/intro2.png")
 	bg1 = pygame.image.load("picture/button.png")													
 	bg2 = pygame.image.load("picture/start.png")
 	bg3 = pygame.image.load("picture/logout.png")
