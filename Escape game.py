@@ -9,12 +9,17 @@ icon = pygame.image.load("picture/Button/icon.png")
 pygame.display.set_icon(icon)    															
 player = pygame.image.load("picture/Player/tjakchar.png") 														
 player1 = pygame.transform.scale(player,(40,40)) 											
-																																	
+#################### bg bg backgound สี ######################
+def down_bg2():
+	"""bg สี """
+	BG = (255, 128, 0) 																			
+	screen.fill(BG) 																																	
 #################### bg หลังการเดิน 1 ครั้ง ######################
 def down_bg():
 	"""BG หลังการเดิน"""
-	BG = (0, 0, 0) 																			
-	screen.fill(BG) 
+	BG = pygame.image.load("picture/Button/BG/back_103.png")
+	bg = pygame.transform.scale(BG,(1000,750))																	
+	screen.blit(bg,(0,0))
 
 ######################    หน้าเกม   ##########################
 def intro():																				
@@ -70,29 +75,45 @@ def credit():
 	message3 = "KEN MURAKI"
 	message4 = "JEERACHAYA CHAREONPOL"
 	back_bt = pygame.image.load("picture/Button/Back/back1.png")
-	sc_b1 = pygame.transform.scale(back_bt,(100,100))
+	back_bt2 = pygame.image.load("picture/Button/Back/back2.png")
+	sc_b1 = pygame.transform.scale(back_bt,(70,70))
+	sc_b2 = pygame.transform.scale(back_bt2,(70,70))
 	font = pygame.font.SysFont("Courier", 50)
-	red = (255, 0, 0)
-	msg = font.render(message1, True, red)
-	msg2 = font.render(message2, True, red)
-	msg3 = font.render(message3, True, red)
-	msg4 = font.render(message4, True, red)
+	blue = (0, 0, 153)
+	msg = font.render(message1, True, blue)
+	msg2 = font.render(message2, True, blue)
+	msg3 = font.render(message3, True, blue)
+	msg4 = font.render(message4, True, blue)
 	posi3 = msg3.get_rect(center=(screen.get_rect().centerx,
 								screen.get_rect().centery))
+	down_bg2()
+	screen.blit(sc_b1,(10,10))
+	screen.blit(msg, (353,164))
+	screen.blit(msg2, (353,259))
+	screen.blit(msg3, posi3)
+	screen.blit(msg4, (351, 438))
+	pygame.display.update()
 	BG = (0, 0, 0) 
 	while True:
-		pygame.display.update()
 		for event in pygame.event.get():
 			mx, my = pygame.mouse.get_pos()
 			print(mx, my) 													
 			if event.type == pygame.QUIT:
 				quit()
-		down_bg()
-		screen.blit(sc_b1,(0,0))
-		screen.blit(msg, (353,164))
-		screen.blit(msg2, (353,259))
-		screen.blit(msg3, posi3)
-		screen.blit(msg4, (351, 438))
+			if event.type == pygame.MOUSEMOTION and mx > 10 and mx < 70 and my > 13 and my < 67:
+				screen.blit(sc_b2,(10,10))
+				pygame.display.update()
+			if event.type == pygame.MOUSEBUTTONDOWN and mx > 10 and mx < 70 and my > 13 and my < 67:
+				intro()
+			if mx > 70 or my > 52:
+				down_bg2()
+				screen.blit(sc_b1,(10,10))
+				screen.blit(msg, (353,164))
+				screen.blit(msg2, (353,259))
+				screen.blit(msg3, posi3)
+				screen.blit(msg4, (351, 438))
+				pygame.display.update()
+				
 
 ######################  RUN GAME #########################
 def main():
@@ -107,8 +128,7 @@ def main():
 		down_bg()																			
 		for event in pygame.event.get(): 													
 			if event.type == pygame.QUIT:
-				quit()																		
-
+				quit()
 		""" key ในการกด  """
 		keys = pygame.key.get_pressed() 													
 		if keys[pygame.K_a] and posX > 0: 													
