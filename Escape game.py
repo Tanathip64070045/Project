@@ -54,11 +54,24 @@ def intro():
 				main()
 			if event.type == pygame.MOUSEBUTTONDOWN and mx > 888 and mx < 973 and my > 14 and my < 97:
 				quit()
+			if event.type == pygame.MOUSEBUTTONDOWN and  mx > 10 and mx < 200 and my > 14 and my < 96:
+				credit()
 		screen.blit(bg_intro,(0,0))
 		screen.blit(bg_1,(415,587))
 		screen.blit(bg_3,(880,12))
 		screen.blit(bg_5,(6,12))
-		
+
+######################  credit #########################
+def credit():
+	"""CREDIT"""
+	while True:
+		BG = (0, 0, 0)
+		screen.fill(BG)
+		pygame.display.update()
+		for event in pygame.event.get(): 													
+			if event.type == pygame.QUIT:
+				quit()
+
 ######################  RUN GAME #########################
 def main():
 	"""RUN"""
