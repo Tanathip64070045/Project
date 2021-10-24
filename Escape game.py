@@ -1,6 +1,7 @@
 """Escap game"""
 ###############  game set display  ############################
-import pygame 																				
+import pygame
+from pygame.constants import BIG_ENDIAN 																				
 pygame.init() 																				
 screen = pygame.display.set_mode((1000,750)) 												
 pygame.display.set_caption("ESCAPE GAME") 													
@@ -64,13 +65,34 @@ def intro():
 ######################  credit #########################
 def credit():
 	"""CREDIT"""
+	message1 = "TANATIP SINGHANON"
+	message2 = "AKHAPOP KHUNKITI"
+	message3 = "KEN MURAKI"
+	message4 = "JEERACHAYA CHAREONPOL"
+	back_bt = pygame.image.load("picture/Button/Back/back1.png")
+	sc_b1 = pygame.transform.scale(back_bt,(100,100))
+	font = pygame.font.SysFont("Courier", 50)
+	red = (255, 0, 0)
+	msg = font.render(message1, True, red)
+	msg2 = font.render(message2, True, red)
+	msg3 = font.render(message3, True, red)
+	msg4 = font.render(message4, True, red)
+	posi3 = msg3.get_rect(center=(screen.get_rect().centerx,
+								screen.get_rect().centery))
+	BG = (0, 0, 0) 
 	while True:
-		BG = (0, 0, 0)
-		screen.fill(BG)
 		pygame.display.update()
-		for event in pygame.event.get(): 													
+		for event in pygame.event.get():
+			mx, my = pygame.mouse.get_pos()
+			print(mx, my) 													
 			if event.type == pygame.QUIT:
 				quit()
+		down_bg()
+		screen.blit(sc_b1,(0,0))
+		screen.blit(msg, (353,164))
+		screen.blit(msg2, (353,259))
+		screen.blit(msg3, posi3)
+		screen.blit(msg4, (351, 438))
 
 ######################  RUN GAME #########################
 def main():
