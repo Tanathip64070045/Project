@@ -27,29 +27,29 @@ def map1():
 	screen.blit(bg,(0,0))
 	map_print = """
 	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxy
-	xxxxxxxxxxxxxxxxx   xxxxxxxxxxxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxy
+	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxy
+	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxy
+	xxxx        x       xxx   xxxxxxxy
+	xxxx xxx xx xx xxx xxxx x xxxxxxxy
+	xxx  xx   x xx xxx      x      xxy
+	xx  x xxxxx   xxxxxxxxxxx xxxxxxxy
+	xx xx xxxxxx xxxx xxxxxxx   xxxxxy
+	xx x       x xx           x    xxy
+	xx x xxxxxxx xxx xxxxxxxxxxxxx xxy
+	xx x xx xxxx  xx x xxxx    xx  xxy
+	xx x xx   xxx xx   xxxx xx xx xxxy
+	     xx x xx   xxx x    xx  x    y
+	xx xxxx x xx x       xxxxxxx xxxxy
+	xx      x x  xxxxx xxxx    x xxxxy
+	xxx xx xxxxxxxxxxx      xxxx xxxxy
+	xxx xx    x    xxxx xxxxxxxx x xxy
+	xx  xxxxx x xx    x xxxx     x xxy
+	xx xxx xx x xxxxxxx xxxx xxxx  xxy
+	xx xx  x    x            xxxx xxxy
+	xx xx xxxx xx x xxxxx xxxxxxx xxxy
+	xx    xxxx    x   xxx         xxxy
+	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxy
 	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxy""" # กว้าง 25 ยาว 34
 	for i in map_print:
 		if i == "x":
