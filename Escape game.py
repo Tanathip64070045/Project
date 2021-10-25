@@ -13,8 +13,9 @@ player1 = pygame.transform.scale(player,(40,40))
 def down_bg2():
 	"""bg สี """
 	BG = (255, 128, 0) 																			
-	screen.fill(BG) 																																	
-#################### bg หลังการเดิน 1 ครั้ง ######################
+	screen.fill(BG) 
+
+#################### map ที่ 1 ################################
 def map1():
 	"""BG หลังการเดิน"""
 	BG = pygame.image.load("picture/Button/BG/back_103.png")
@@ -153,7 +154,6 @@ def credit():
 				screen.blit(msg4, (351, 438))
 				pygame.display.update()
 				
-
 ######################  RUN GAME #########################
 def main():
 	"""RUN"""
@@ -179,6 +179,7 @@ def main():
 		if keys[pygame.K_s] and posY < 680: 											
 			posY += move
 		screen.blit(player1,(posX, posY)) 													
-		pygame.display.update() 															
+		pygame.display.update() 	
+																
 #################### ฟังก์ชั้น ##################################
 intro()	
