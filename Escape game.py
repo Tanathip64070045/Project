@@ -1,7 +1,7 @@
 """Escap game"""
 ###############  game set display  ############################
 import pygame
-from pygame.constants import BIG_ENDIAN 																				
+#from pygame.constants import BIG_ENDIAN																				
 pygame.init() 																				
 screen = pygame.display.set_mode((1000,750)) 												
 pygame.display.set_caption("ESCAPE GAME") 													
@@ -50,7 +50,7 @@ def map1():
 	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
 	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
 	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
-	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxy"""
+	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxy""" # กว้าง 25 ยาว 34
 	for i in map_print:
 		if i == "x":
 			screen.blit(wall2,(point_x,point_y))
