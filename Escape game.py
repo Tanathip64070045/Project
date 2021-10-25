@@ -136,8 +136,7 @@ def credit():
 	BG = (0, 0, 0) 
 	while True:
 		for event in pygame.event.get():
-			mx, my = pygame.mouse.get_pos()
-			print(mx, my) 													
+			mx, my = pygame.mouse.get_pos() 													
 			if event.type == pygame.QUIT:
 				quit()
 			if event.type == pygame.MOUSEMOTION and mx > 10 and mx < 70 and my > 13 and my < 67:
