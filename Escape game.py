@@ -8,7 +8,7 @@ pygame.display.set_caption("ESCAPE GAME")
 icon = pygame.image.load("picture/Button/icon.png")  														
 pygame.display.set_icon(icon)    															
 player = pygame.image.load("picture/Player/tjakchar.png") 														
-player1 = pygame.transform.scale(player,(40,40)) 											
+player1 = pygame.transform.scale(player,(25,25)) 											
 #################### bg bg backgound สี ######################
 def down_bg2():
 	"""bg สี """
@@ -26,20 +26,20 @@ def map1():
 	point_y = 0
 	screen.blit(bg,(0,0))
 	map_print = """
-	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxy
-	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxy
+	                                 o
+	                                 o                                   
 	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxy
 	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxy
 	xxxx        x       xxx   xxxxxxxy
-	xxxx xxx xx xx xxx xxxx x xxxxxxxy
-	xxx  xx   x xx xxx      x      xxy
-	xx  x xxxxx   xxxxxxxxxxx xxxxxxxy
-	xx xx xxxxxx xxxx xxxxxxx   xxxxxy
-	xx x       x xx           x    xxy
+	xxxx xxx xx  x xxx xxxx x xxxxxxxy
+	xxx  xx   xxxx xxx      x        y
+	xx  x xx xx   xxxxxx xxxx xxxxxx y
+	xx xx xx xxx xxxx xx xxxx   xxxx y
+	xx x       x xx           x    x y
 	xx x xxxxxxx xxx xxxxxxxxxxxxx xxy
 	xx x xx xxxx  xx x xxxx    xx  xxy
 	xx x xx   xxx xx   xxxx xx xx xxxy
-	     xx x xx   xxx x    xx  x    y
+	     xx x xx   xxx x    xx       o
 	xx xxxx x xx x       xxxxxxx xxxxy
 	xx      x x  xxxxx xxxx    x xxxxy
 	xxx xx xxxxxxxxxxx      xxxx xxxxy
@@ -61,7 +61,10 @@ def map1():
 			screen.blit(wall2,(point_x,point_y))
 			point_x = 0
 			point_y += 30
-	
+		if i == "o":
+			point_y += 30
+			point_x = 0	
+		
 ######################    หน้าเกม   ##########################
 def intro():																				
 	"""หน้าเกม"""
@@ -159,7 +162,7 @@ def main():
 	"""RUN"""
     
 	posX = 0         																		
-	posY = 680   																		
+	posY = 395  																		
 	move = 2																				
 	""" loop รันเกม """
 	while True:
@@ -170,16 +173,16 @@ def main():
 				quit()
 		""" key ในการกด  """
 		keys = pygame.key.get_pressed() 													
-		if keys[pygame.K_a] and posX > 0: 													
+		if keys[pygame.K_a] and posX > 0:													
 			posX -= move
-		if keys[pygame.K_d] and posX < 1000 - 40: 											
+		if keys[pygame.K_d] and posX < 1000-25: 											
 			posX += move
 		if keys[pygame.K_w] and posY > 0: 													
 			posY -= move
 		if keys[pygame.K_s] and posY < 680: 											
 			posY += move
 		screen.blit(player1,(posX, posY)) 													
-		pygame.display.update() 	
-																
+		pygame.display.update()
+		print(posX, posY)														
 #################### ฟังก์ชั้น ##################################
 intro()	
