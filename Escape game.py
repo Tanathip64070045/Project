@@ -15,12 +15,52 @@ def down_bg2():
 	BG = (255, 128, 0) 																			
 	screen.fill(BG) 																																	
 #################### bg หลังการเดิน 1 ครั้ง ######################
-def down_bg():
+def map1():
 	"""BG หลังการเดิน"""
 	BG = pygame.image.load("picture/Button/BG/back_103.png")
-	bg = pygame.transform.scale(BG,(1000,750))																	
+	bg = pygame.transform.scale(BG,(1000,750))
+	wall = pygame.image.load("picture/map/block_stone.png")	
+	wall2 = pygame.transform.scale(wall,(30,30))																
+	point_x = 0
+	point_y = 0
 	screen.blit(bg,(0,0))
-
+	map_print = """
+	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxy
+	xxxxxxxxxxxxxxxxx   xxxxxxxxxxxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxx   xxxxxxx  xxxxx xxxxx  xxxxy
+	xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxy"""
+	for i in map_print:
+		if i == "x":
+			screen.blit(wall2,(point_x,point_y))
+			point_x += 30
+		if i == " ":
+			point_x += 30
+		if i == "y":
+			screen.blit(wall2,(point_x,point_y))
+			point_x = 0
+			point_y += 30
+	
 ######################    หน้าเกม   ##########################
 def intro():																				
 	"""หน้าเกม"""
@@ -120,12 +160,12 @@ def main():
 	"""RUN"""
     
 	posX = 0         																		
-	posY = 750-40   																		
+	posY = 680   																		
 	move = 2																				
 	""" loop รันเกม """
 	while True:
-		pygame.time.delay(20) 																
-		down_bg()																			
+		pygame.time.delay(7) 																
+		map1()																			
 		for event in pygame.event.get(): 													
 			if event.type == pygame.QUIT:
 				quit()
@@ -137,9 +177,9 @@ def main():
 			posX += move
 		if keys[pygame.K_w] and posY > 0: 													
 			posY -= move
-		if keys[pygame.K_s] and posY < 750 - 40: 											
+		if keys[pygame.K_s] and posY < 680: 											
 			posY += move
 		screen.blit(player1,(posX, posY)) 													
-		pygame.display.update()   															
+		pygame.display.update() 															
 #################### ฟังก์ชั้น ##################################
 intro()	
