@@ -1,14 +1,15 @@
 """Escap game"""
 ###############  game set display  ############################
-import pygame
-#from pygame.constants import BIG_ENDIAN																				
+import pygame																				
 pygame.init() 																				
 screen = pygame.display.set_mode((1000,750)) 												
 pygame.display.set_caption("ESCAPE GAME") 													
 icon = pygame.image.load("picture/Button/icon.png")  														
 pygame.display.set_icon(icon)    															
 player = pygame.image.load("picture/Player/tjakchar.png") 														
-player1 = pygame.transform.scale(player,(25,25)) 											
+player1 = pygame.transform.scale(player,(25,25))
+font = pygame.font.SysFont("picture/font/8-BIT WONDER.TTF", 50)	
+
 #################### bg bg backgound สี ######################
 def down_bg2():
 	"""bg สี """
@@ -75,6 +76,8 @@ def intro():
 	bg4 = pygame.image.load("picture/Button/Exit/ExitP.png")
 	bg5 = pygame.image.load("picture/Button/TJAK (Credit)/TJAK.png")
 	bg6 = pygame.image.load("picture/Button/TJAK (Credit)/TJAKmap.png")
+	bg7 = pygame.image.load("picture/Button/BG/orange.png")
+	bg8 = pygame.image.load("picture/Player/player_flip.png")
 	""" ปรับ sale """
 	bg_1 = pygame.transform.scale(bg1,(150,100))
 	bg_2 = pygame.transform.scale(bg2,(150,100))
@@ -82,6 +85,8 @@ def intro():
 	bg_4 = pygame.transform.scale(bg4,(100,100))
 	bg_5 = pygame.transform.scale(bg5,(200,90))
 	bg_6 = pygame.transform.scale(bg6,(200,90))
+	bg_7 = pygame.transform.scale(bg7,(336,444))
+	bg_8 = pygame.transform.scale(bg8,(900,800))
 	intro = True					
 	""" loop intro """
 	while intro:
@@ -91,21 +96,27 @@ def intro():
 				pygame.quit()
 				quit()
 				""" เมาส์ในการกด กลางหน้าจอ """
-			if mx > 423 and mx < 555 and my > 588 and my < 684:
+			if event.type == pygame.MOUSEMOTION and mx > 423 and mx < 555 and my > 588 and my < 684:
 				screen.blit(bg_2,(415,587))
 			pygame.display.update()
-			if mx > 888 and mx < 973 and my > 14 and my < 97:
+			if event.type == pygame.MOUSEMOTION and mx > 888 and mx < 973 and my > 14 and my < 97:
 				screen.blit(bg_4,(880, 12))
 			pygame.display.update()
-			if mx > 10 and mx < 200 and my > 14 and my < 96:
+			if event.type == pygame.MOUSEMOTION and mx > 10 and mx < 200 and my > 14 and my < 96:
 				screen.blit(bg_6,(6,12))
 			pygame.display.update()
 			if event.type == pygame.MOUSEBUTTONDOWN and mx > 423 and mx < 555 and my > 588 and my < 684:
-				main()
+				if event.button == 1:
+					main()
 			if event.type == pygame.MOUSEBUTTONDOWN and mx > 888 and mx < 973 and my > 14 and my < 97:
-				quit()
+				if event.button == 1:
+					quit()
 			if event.type == pygame.MOUSEBUTTONDOWN and  mx > 10 and mx < 200 and my > 14 and my < 96:
-				credit()
+				if event.button == 1:
+					credit()
+			if event.type == pygame.MOUSEBUTTONDOWN and mx > 398 and mx < 621 and my > 142 and my < 542:
+				screen.blit(bg_7,(317,103))
+				screen.blit(bg_8,(60,-45))
 		screen.blit(bg_intro,(0,0))
 		screen.blit(bg_1,(415,587))
 		screen.blit(bg_3,(880,12))
@@ -122,23 +133,18 @@ def credit():
 	back_bt2 = pygame.image.load("picture/Button/Back/back2.png")
 	sc_b1 = pygame.transform.scale(back_bt,(70,70))
 	sc_b2 = pygame.transform.scale(back_bt2,(70,70))
-	font = pygame.font.SysFont("Courier", 50)
 	blue = (0, 0, 153)
 	msg = font.render(message1, True, blue)
 	msg2 = font.render(message2, True, blue)
 	msg3 = font.render(message3, True, blue)
 	msg4 = font.render(message4, True, blue)
-	posi3 = msg3.get_rect(center=(screen.get_rect().centerx,
-								screen.get_rect().centery))
-	down_bg2()
-	screen.blit(sc_b1,(10,10))
-	screen.blit(msg, (353,164))
-	screen.blit(msg2, (353,259))
-	screen.blit(msg3, posi3)
-	screen.blit(msg4, (351, 438))
-	pygame.display.update()
-	BG = (0, 0, 0) 
 	while True:
+		down_bg2()
+		screen.blit(sc_b1,(10,10))
+		screen.blit(msg, (353,164))
+		screen.blit(msg2, (353,259))
+		screen.blit(msg3, (353,354))
+		screen.blit(msg4, (353,438))
 		for event in pygame.event.get():
 			mx, my = pygame.mouse.get_pos() 													
 			if event.type == pygame.QUIT:
@@ -147,27 +153,33 @@ def credit():
 				screen.blit(sc_b2,(10,10))
 				pygame.display.update()
 			if event.type == pygame.MOUSEBUTTONDOWN and mx > 10 and mx < 70 and my > 13 and my < 67:
-				intro()
+				if event.button == 1:
+				    intro()
 			if mx > 70 or my > 52:
 				down_bg2()
 				screen.blit(sc_b1,(10,10))
 				screen.blit(msg, (353,164))
 				screen.blit(msg2, (353,259))
-				screen.blit(msg3, posi3)
-				screen.blit(msg4, (351, 438))
+				screen.blit(msg3, (353,354))
+				screen.blit(msg4, (353,438))
 				pygame.display.update()
 				
-######################  RUN GAME #########################
+######################  RUN GAME map 1 #########################
 def main():
 	"""RUN"""
-    
+	import time
 	posX = 0         																		
 	posY = 395  																		
 	move = 2																				
 	""" loop รันเกม """
+	blue = (0, 0, 153)
 	while True:
-		pygame.time.delay(7) 																
-		map1()																			
+		pygame.time.delay(15) 																
+		map1()
+		msg = font.render("X:"+str(posX)+"  "+"Y:"+str(posY), True, blue)
+		timess = font.render("Time: "+time.ctime()[11:20], True, blue)
+		screen.blit(msg, (700,50))
+		screen.blit(timess, (100,50))																		
 		for event in pygame.event.get(): 													
 			if event.type == pygame.QUIT:
 				quit()
@@ -181,8 +193,33 @@ def main():
 			posY -= move
 		if keys[pygame.K_s] and posY < 680: 											
 			posY += move
-		screen.blit(player1,(posX, posY)) 													
+		screen.blit(player1,(posX, posY)) 												
 		pygame.display.update()
-		print(posX, posY)														
+																
 #################### ฟังก์ชั้น ##################################
 intro()	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+######################## ฝึกทำ ###############################
+# class world():
+# 	def __init__(self):
+# 		self.obstacle_list = []
+
+# 	def process_data(self, data):
+# 		for y, row in enumerate(data):
+# 			for x, tile in enumerate()
