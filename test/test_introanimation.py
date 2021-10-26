@@ -27,8 +27,6 @@ image_sprite = [pygame.image.load("test/intro animation/Kid ice1.png"),
                 pygame.image.load("test/intro animation/Kid ice25.png"),
                 pygame.image.load("test/intro animation/Kid ice25.png")]
 clock = pygame.time.Clock()
-value = 0
-moving = False
 while True:
     for event in pygame.event.get():
         mx, my = pygame.mouse.get_pos()
