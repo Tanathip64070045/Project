@@ -1,7 +1,7 @@
 """Escap game"""
 import pygame																		
 pygame.init() 																				
-window = pygame.display.set_mode((1000, 750))
+screen = pygame.display.set_mode((1000, 750))
 bg_intro = pygame.image.load("test/intro animation/Kid ice1.png")
 image_sprite = [pygame.image.load("test/intro animation/Kid ice1.png"),
                 pygame.image.load("test/intro animation/Kid ice2.png"),
@@ -40,5 +40,5 @@ while True:
                 clock.tick(9)
                 image = image_sprite[i]
                 image = pygame.transform.scale(image, (1000, 750))
-                window.blit(image, (0, 0))
+                screen.blit(image, (0, 0))
                 pygame.display.update()
