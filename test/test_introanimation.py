@@ -3,7 +3,7 @@ import pygame
 pygame.init() 																				
 screen = pygame.display.set_mode((1000, 750))
 bg_intro = pygame.image.load("test/intro animation/Kid ice1.png")
-image_sprite = [pygame.image.load("test/intro animation/Kid ice1.png"),
+image_introa = [pygame.image.load("test/intro animation/Kid ice1.png"),
                 pygame.image.load("test/intro animation/Kid ice2.png"),
                 pygame.image.load("test/intro animation/Kid ice3.png"),
                 pygame.image.load("test/intro animation/Kid ice4.png"),
@@ -34,9 +34,9 @@ while True:
             pygame.quit()
             quit()
         if event.type == pygame.MOUSEBUTTONDOWN and mx > 412 and mx < 608 and my > 183 and my < 540:
-            for i in range(len(image_sprite)):
+            for i in range(len(image_introa)):
                 clock.tick(9)
-                image = image_sprite[i]
+                image = image_introa[i]
                 image = pygame.transform.scale(image, (1000, 750))
                 screen.blit(image, (0, 0))
                 pygame.display.update()
