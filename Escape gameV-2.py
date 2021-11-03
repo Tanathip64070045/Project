@@ -123,7 +123,7 @@ player = player(20, 375, 3, 1)
 
 world_data = []
 for row in range(ROWS):
-    r = [0] * COLS
+    r = [-1] * COLS
     world_data.append(r)
 
 with open(f'level{level}_data.csv', newline='') as csvfile:
