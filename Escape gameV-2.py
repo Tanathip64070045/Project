@@ -14,7 +14,7 @@ FPS = 100
 
 ROWS = 25
 COLS = 34
-TILE_SIZE = screen_height // ROWS
+TILE_SIZE = 30
 TILE_TYPES = 21
 level = 0
 
