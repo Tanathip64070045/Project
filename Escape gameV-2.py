@@ -49,13 +49,13 @@ class player():
         temp_list = []
         for i in range(5):
             img = pygame.image.load(f"picture/animation/stand/{i}.png")
-            img = pygame.transform.scale(img, (25,25))
+            img = pygame.transform.scale(img, (20,20))
             temp_list.append(img)
         self.animation_list.append(temp_list)
         temp_list = []
         for i in range(25):
             img = pygame.image.load(f"picture/animation/walk/{i}.png")
-            img = pygame.transform.scale(img, (25,25))
+            img = pygame.transform.scale(img, (20,20))
             temp_list.append(img)
         self.animation_list.append(temp_list)
         self.image = self.animation_list[self.action][self.frame_index]
@@ -150,19 +150,59 @@ with open(f'level{level}_data.csv', newline='') as csvfile:
 world = World()
 player2 = world.process_data(world_data)
 
+######################## INTRO ############################################
+bg_intro = pygame.image.load("picture/Button/BG/intro2.png")
+bg1 = pygame.image.load("picture/Button/Start/StartN.png")													
+bg2 = pygame.image.load("picture/Button/Start/StartP.png")
+bg3 = pygame.image.load("picture/Button/Exit/ExitN.png")
+bg4 = pygame.image.load("picture/Button/Exit/ExitP.png")
+bg5 = pygame.image.load("picture/Button/TJAK (Credit)/TJAK.png")
+bg6 = pygame.image.load("picture/Button/TJAK (Credit)/TJAKmap.png")
+bg7 = pygame.image.load("picture/Button/BG/orange.png")
+bg8 = pygame.image.load("picture/Player/player_flip.png")
+
+bg_1 = pygame.transform.scale(bg1,(150,100))
+bg_2 = pygame.transform.scale(bg2,(150,100))
+bg_3 = pygame.transform.scale(bg3,(100,100))
+bg_4 = pygame.transform.scale(bg4,(100,100))
+bg_5 = pygame.transform.scale(bg5,(200,90))
+bg_6 = pygame.transform.scale(bg6,(200,90))
+bg_7 = pygame.transform.scale(bg7,(336,444))
+bg_8 = pygame.transform.scale(bg8,(900,800))
+
+############################################################################
+
 
 run = True
 while run:
     mx, my = pygame.mouse.get_pos()
     clock.tick(FPS)
     if start_game == False:
-        draw_bg()
         for event in pygame.event.get():
-            if event.type == pygame.MOUSEBUTTONDOWN and mx > 861 and my < 82:
-                run == False
-                quit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                start_game = True
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.MOUSEMOTION and mx > 423 and mx < 555 and my > 588 and my < 684:
+                screen.blit(bg_2,(415,587))
+            pygame.display.update()
+            if event.type == pygame.MOUSEMOTION and mx > 888 and mx < 973 and my > 14 and my < 97:
+                screen.blit(bg_4,(880, 12))
+            pygame.display.update()
+            if event.type == pygame.MOUSEMOTION and mx > 10 and mx < 200 and my > 14 and my < 96:
+                screen.blit(bg_6,(6,12))
+            pygame.display.update()
+            if event.type == pygame.MOUSEBUTTONDOWN and mx > 423 and mx < 555 and my > 588 and my < 684:
+                if event.button == 1:
+                    start_game = True
+            if event.type == pygame.MOUSEBUTTONDOWN and mx > 888 and mx < 973 and my > 14 and my < 97:
+                if event.button == 1:
+                    quit()
+            if event.type == pygame.MOUSEBUTTONDOWN and mx > 398 and mx < 621 and my > 142 and my < 542:
+                screen.blit(bg_7,(317,103))
+                screen.blit(bg_8,(60,-45))
+            screen.blit(bg_intro,(0,0))
+            screen.blit(bg_1,(415,587))
+            screen.blit(bg_3,(880,12))
+            screen.blit(bg_5,(6,12))
             print(mx, my)
     else:
         draw_bg()
