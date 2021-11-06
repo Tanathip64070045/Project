@@ -10,7 +10,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Escape Game")
 
 clock = pygame.time.Clock()
-FPS = 100
+FPS = 60
 
 ROWS = 25
 COLS = 34
@@ -46,12 +46,12 @@ class player():
         self.frame_index = 0
         self.action = 0
         self.update_time = pygame.time.get_ticks()
-        temp_list = []
+        temp_list = [] 
         for i in range(5):
             img = pygame.image.load(f"picture/animation/stand/{i}.png")
             img = pygame.transform.scale(img, (20,20))
             temp_list.append(img)
-        self.animation_list.append(temp_list)
+        self.animation_list.append(temp_list) 
         temp_list = []
         for i in range(25):
             img = pygame.image.load(f"picture/animation/walk/{i}.png")
@@ -92,6 +92,11 @@ class player():
        
         self.rect.x += dx
         self.rect.y += dy
+        
+        if self.rect.x > 999 and self.rect.y > 360 and level == 0:
+            quit()
+        
+        print(self.rect.x, self.rect.y)
 
     def update_animation(self):
         ANIMATION_COOLDOWN = 100
@@ -122,7 +127,7 @@ class World():
         for y, row in enumerate(data):
             for x, tile in enumerate(row):
                 if tile >= 0:
-                    img =img_list[tile]
+                    img = img_list[tile]
                     img_rect = img.get_rect()
                     img_rect.x = x * 30
                     img_rect.y = y * 30
@@ -131,7 +136,7 @@ class World():
                         self.obstacle_list.append(tile_data)
     
     def draw(self):
-        for tile in self.obstacle_list:
+        for tile in self.obstacle_list: 
             screen.blit(tile[0], tile[1])
 
 player = player(20, 375, 1)
@@ -141,8 +146,8 @@ for row in range(ROWS):
     r = [-1] * COLS
     world_data.append(r)
 
-with open(f'level{level}_data.csv', newline='') as csvfile:
-    reader = csv.reader(csvfile, delimiter=',')
+with open(f'level{level}_data.csv', newline='') as csvfile: 
+    reader = csv.reader(csvfile, delimiter=',')               
     for x, row in enumerate(reader):
         for y, tile in enumerate(row):
             world_data[x][y] = int(tile)
@@ -203,7 +208,7 @@ while run:
             screen.blit(bg_1,(415,587))
             screen.blit(bg_3,(880,12))
             screen.blit(bg_5,(6,12))
-            print(mx, my)
+            
     else:
         draw_bg()
         world.draw()
