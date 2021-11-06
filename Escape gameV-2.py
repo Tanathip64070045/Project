@@ -14,7 +14,7 @@ FPS = 100
 
 ROWS = 25
 COLS = 34
-TILE_SIZE = screen_height // ROWS
+TILE_SIZE = 30
 TILE_TYPES = 21
 level = 0
 
@@ -123,7 +123,7 @@ player = player(20, 375, 3, 1)
 
 world_data = []
 for row in range(ROWS):
-    r = [0] * COLS
+    r = [-1] * COLS
     world_data.append(r)
 
 with open(f'level{level}_data.csv', newline='') as csvfile:
