@@ -36,26 +36,35 @@ def draw_bg():
     screen.fill(BG)
 
 
-class player(pygame.sprite.Sprite):
-    def __init__(self, x, y, scale, speed):
-        pygame.sprite.Sprite.__init__(self)
+
+class player():
+    def __init__(self, x, y, speed):
         self.speed = speed
         self.direction = 1
         self.flip = False
         self.animation_list = []
         self.frame_index = 0
+        self.action = 0
         self.update_time = pygame.time.get_ticks()
+        temp_list = []
         for i in range(5):
             img = pygame.image.load(f"picture/animation/stand/{i}.png")
             img = pygame.transform.scale(img, (25,25))
-            self.animation_list.append(img)
-        self.image = self.animation_list[self.frame_index]
+            temp_list.append(img)
+        self.animation_list.append(temp_list)
+        temp_list = []
+        for i in range(25):
+            img = pygame.image.load(f"picture/animation/walk/{i}.png")
+            img = pygame.transform.scale(img, (25,25))
+            temp_list.append(img)
+        self.animation_list.append(temp_list)
+        self.image = self.animation_list[self.action][self.frame_index]
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
         self.width = self.image.get_width()
         self.height = self.image.get_height()
+    
     def move(self, move_left, move_right, move_top, move_down):
-
         dx = 0
         dy = 0
 
@@ -83,19 +92,25 @@ class player(pygame.sprite.Sprite):
        
         self.rect.x += dx
         self.rect.y += dy
-       
 
     def update_animation(self):
         ANIMATION_COOLDOWN = 100
 
-        self.image = self.animation_list[self.frame_index]
+        self.image = self.animation_list[self.action][self.frame_index]
         
         if pygame.time.get_ticks() - self.update_time > ANIMATION_COOLDOWN:
             self.update_time = pygame.time.get_ticks()
             self.frame_index += 1
-        if self.frame_index >= len(self.animation_list):
+        if self.frame_index >= len(self.animation_list[self.action]):
             self.frame_index = 0
     
+    def update_action(self, new_action):
+        if new_action != self.action:
+            self.action = new_action
+            self.frame_index = 0
+            self.update_time = pygame.time.get_ticks()
+
+
     def draw(self):
         screen.blit(pygame.transform.flip(self.image, self.flip, False), self.rect)
 
@@ -119,7 +134,7 @@ class World():
         for tile in self.obstacle_list:
             screen.blit(tile[0], tile[1])
 
-player = player(20, 375, 3, 1)
+player = player(20, 375, 1)
 
 world_data = []
 for row in range(ROWS):
@@ -143,7 +158,11 @@ while run:
     world.draw()
     player.update_animation()
     player.draw()
-    
+
+    if move_left or move_right or move_top or move_down:
+        player.update_action(1)
+    else:
+        player.update_action(0)
     player.move(move_left, move_right, move_top, move_down)
     
     for event in  pygame.event.get():
@@ -152,13 +171,17 @@ while run:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
                 move_left = True
+                
             if event.key == pygame.K_d:
                 move_right = True
+                
             if event.key == pygame.K_w:
                 move_top = True
+               
             if event.key == pygame.K_s:
                 move_down = True
-        
+               
+    
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_a:
                 move_left = False
@@ -168,6 +191,5 @@ while run:
                 move_top = False
             if event.key == pygame.K_s:
                 move_down = False
-
     pygame.display.update()
 pygame.quit()
