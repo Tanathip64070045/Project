@@ -17,7 +17,7 @@ COLS = 34
 TILE_SIZE = 30
 TILE_TYPES = 21
 level = 0
-
+start_game = False
 
 move_left = False
 move_right = False
@@ -153,43 +153,54 @@ player2 = world.process_data(world_data)
 
 run = True
 while run:
+    mx, my = pygame.mouse.get_pos()
     clock.tick(FPS)
-    draw_bg()
-    world.draw()
-    player.update_animation()
-    player.draw()
-
-    if move_left or move_right or move_top or move_down:
-        player.update_action(1)
+    if start_game == False:
+        draw_bg()
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN and mx > 861 and my < 82:
+                run == False
+                quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                start_game = True
+            print(mx, my)
     else:
-        player.update_action(0)
-    player.move(move_left, move_right, move_top, move_down)
+        draw_bg()
+        world.draw()
+        player.update_animation()
+        player.draw()
+
+        if move_left or move_right or move_top or move_down:
+            player.update_action(1)
+        else:
+            player.update_action(0)
+        player.move(move_left, move_right, move_top, move_down)
     
-    for event in  pygame.event.get():
-        if event.type == pygame.QUIT:
-            run = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_a:
-                move_left = True
+        for event in  pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_a:
+                    move_left = True
                 
-            if event.key == pygame.K_d:
-                move_right = True
+                if event.key == pygame.K_d:
+                    move_right = True
                 
-            if event.key == pygame.K_w:
-                move_top = True
+                if event.key == pygame.K_w:
+                    move_top = True
                
-            if event.key == pygame.K_s:
-                move_down = True
+                if event.key == pygame.K_s:
+                    move_down = True
                
     
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_a:
-                move_left = False
-            if event.key == pygame.K_d:
-                move_right = False
-            if event.key == pygame.K_w:
-                move_top = False
-            if event.key == pygame.K_s:
-                move_down = False
-    pygame.display.update()
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_a:
+                    move_left = False
+                if event.key == pygame.K_d:
+                    move_right = False
+                if event.key == pygame.K_w:
+                    move_top = False
+                if event.key == pygame.K_s:
+                    move_down = False
+        pygame.display.update()
 pygame.quit()
