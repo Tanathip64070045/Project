@@ -146,7 +146,7 @@ for row in range(ROWS):
     r = [-1] * COLS
     world_data.append(r)
 
-with open(f'level{level}_data.csv', newline='') as csvfile: 
+with open(f'level{level}_data.csv', newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=',')               
     for x, row in enumerate(reader):
         for y, tile in enumerate(row):
