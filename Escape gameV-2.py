@@ -92,10 +92,20 @@ class player():
        
         self.rect.x += dx
         self.rect.y += dy
-        
+
         if self.rect.x > 999 and self.rect.y > 360 and level == 0:
             quit()
-        
+        if (self.rect.x >= 330 and self.rect.x <= 357 and self.rect.y == 130) \
+            or (self.rect.x == 360 and self.rect.y >= 130 and self.rect.y <= 180) or \
+                self.rect.x >= 330 and self.rect.x <= 360 and self.rect.y == 180 and level == 0:
+            over = pygame.image.load("picture/Button/over2.png")
+            g_1 = pygame.transform.scale(over,(150,100))
+            while True:
+                screen.blit(g_1,(428,300))
+                pygame.display.update()
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        quit()
         print(self.rect.x, self.rect.y)
 
     def update_animation(self):
@@ -177,7 +187,6 @@ bg_8 = pygame.transform.scale(bg8,(900,800))
 
 ############################################################################
 
-
 run = True
 while run:
     mx, my = pygame.mouse.get_pos()
@@ -208,7 +217,7 @@ while run:
             screen.blit(bg_1,(415,587))
             screen.blit(bg_3,(880,12))
             screen.blit(bg_5,(6,12))
-            
+
     else:
         draw_bg()
         world.draw()
