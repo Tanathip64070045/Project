@@ -71,19 +71,19 @@ class player():
         if move_left:
             dx = -self.speed
             self.flip = True
-            self.direction = -1
+            self.direction = -2
         if move_right:
             dx = self.speed
             self.flip = False
-            self.direction = 1
+            self.direction = 2
         if move_top:
             dy = -self.speed
             self.flip = False
-            self.direction = 1
+            self.direction = 2
         if move_down:
             dy = self.speed
             self.flip = False
-            self.direction = 1
+            self.direction = 2
 
         for tile in world.obstacle_list:
             if tile[1].colliderect(self.rect.x + dx, self.rect.y + dy, self.width, self.height):
@@ -99,7 +99,7 @@ class player():
             or (self.rect.x == 360 and self.rect.y >= 130 and self.rect.y <= 180) or \
                 self.rect.x >= 330 and self.rect.x <= 360 and self.rect.y == 180 and level == 0:
             over = pygame.image.load("picture/Button/over2.png")
-            g_1 = pygame.transform.scale(over,(150,100))
+            g_1 = pygame.transform.scale(over, (150,100))
             while True:
                 screen.blit(g_1,(428,300))
                 pygame.display.update()
