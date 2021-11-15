@@ -171,12 +171,12 @@ player2 = world.process_data(world_data)
 def credit():
     pygame.font.init()
     credit ="""
-    credit by
+credit by
 
 
 Tanatip singhanon
 
-Akhabhop khunkitti
+Akhapop khunkitti
 
 Ken muraki
 
@@ -192,7 +192,7 @@ Jeerachaya chareonphol
         text = []
         pos1 = []
         credit2 = credit.split("\n")
-        font = pygame.font.SysFont("Arial", 40)
+        font = pygame.font.SysFont("Arial", 45)
         for line in credit2:
             msg = font.render(line, True, (255,0,0,))
             text.append(msg)
@@ -201,11 +201,12 @@ Jeerachaya chareonphol
             pos1.append(pos)
             i += 1
         for j in range(i):
-            screen.blit(text[j],pos[j])
-        mx, my = pygame.mouse.get_pos()
+            screen.blit(text[j],pos1[j])
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                return
         pygame.display.update()
 
 ######################## INTRO ############################################
