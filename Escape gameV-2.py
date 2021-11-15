@@ -1,6 +1,9 @@
 import pygame
 import csv
 
+from pygame import display
+from pygame.constants import MOUSEBUTTONDOWN, QUIT
+
 pygame.init()
 
 screen_width = 1000
@@ -165,6 +168,46 @@ with open(f'level{level}_data.csv', newline='') as csvfile:
 world = World()
 player2 = world.process_data(world_data)
 
+def credit():
+    pygame.font.init()
+    credit ="""
+    credit by
+
+
+Tanatip singhanon
+
+Akhabhop khunkitti
+
+Ken muraki
+
+Jeerachaya chareonphol
+"""
+    centerx, centery = screen.get_rect().centerx,screen.get_rect().centery
+    deltay = centery + 50
+    while run:
+        pygame.time.delay(13)
+        screen.fill((255,129,0))
+        deltay -= 1
+        i = 0
+        text = []
+        pos1 = []
+        credit2 = credit.split("\n")
+        font = pygame.font.SysFont("Arial", 40)
+        for line in credit2:
+            msg = font.render(line, True, (255,0,0,))
+            text.append(msg)
+
+            pos = msg.get_rect(center=(centerx,centery+ deltay + 30*i))
+            pos1.append(pos)
+            i += 1
+        for j in range(i):
+            screen.blit(text[j],pos[j])
+        mx, my = pygame.mouse.get_pos()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+        pygame.display.update()
+
 ######################## INTRO ############################################
 bg_intro = pygame.image.load("picture/Button/BG/intro2.png")
 bg1 = pygame.image.load("picture/Button/Start/StartN.png")													
@@ -210,6 +253,8 @@ while run:
             if event.type == pygame.MOUSEBUTTONDOWN and mx > 888 and mx < 973 and my > 14 and my < 97:
                 if event.button == 1:
                     quit()
+            if event.type == pygame.MOUSEBUTTONDOWN and mx > 10 and mx < 200 and my > 14 and my < 96:
+                credit()
             if event.type == pygame.MOUSEBUTTONDOWN and mx > 398 and mx < 621 and my > 142 and my < 542:
                 screen.blit(bg_7,(317,103))
                 screen.blit(bg_8,(60,-45))
