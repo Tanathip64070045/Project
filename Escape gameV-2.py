@@ -4,20 +4,34 @@ import csv
 
 pygame.init()
 
+""" size display """
 screen_width = 1000
 screen_height = 750
 
+""" setdisplay """
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Escape Game")
 
 clock = pygame.time.Clock()
 FPS = 60
 
+""" front type """ 
+font = pygame.font.SysFont("picture/font/8-BIT WONDER.TTF", 50)	
+
+""" row col """
 ROWS = 25
 COLS = 34
+
+""" size block """
 TILE_SIZE = 30
+
+"""type block """
 TILE_TYPES = 21
+
+""" level map """
 level = 0
+
+""" start game """
 start_game = False
 
 move_left = False
@@ -25,7 +39,10 @@ move_right = False
 move_top = False
 move_down = False
 
+""" list collect picture map """
 img_list = []
+
+""" upload picture map """
 for x in range(TILE_TYPES):
     img = pygame.image.load(f'picture/map/{x}.png')
     img = pygame.transform.scale(img, (30,30))
@@ -36,12 +53,15 @@ BG = (0, 0, 0) #ดำ
 
 """ BG """
 def draw_bg():
+    """ fill bg """
     screen.fill(BG)
 
 ################################# player ########################################
 
 class player():
     def __init__(self, x, y, speed):
+        
+        """ input values """
         self.speed = speed
         self.direction = 1
         self.flip = False
@@ -50,16 +70,23 @@ class player():
         self.action = 0
         self.update_time = pygame.time.get_ticks()
         temp_list = [] 
+        
+        """upload pictue stand """
         for i in range(5):
             img = pygame.image.load(f"picture/animation/stand/{i}.png")
             img = pygame.transform.scale(img, (20,20))
             temp_list.append(img)
         self.animation_list.append(temp_list) 
+        
+        """ stand and walk """
         temp_list = []
+        
+        """ upload picture walk """
         for i in range(25):
             img = pygame.image.load(f"picture/animation/walk/{i}.png")
             img = pygame.transform.scale(img, (20,20))
             temp_list.append(img)
+        
         self.animation_list.append(temp_list)
         self.image = self.animation_list[self.action][self.frame_index]
         self.rect = self.image.get_rect()
@@ -71,6 +98,7 @@ class player():
         dx = 0
         dy = 0
 
+        """ move """
         if move_left and self.rect.x > 0:
             dx = -self.speed
             self.flip = True
@@ -89,44 +117,74 @@ class player():
             self.direction = 2
 
         for tile in world.obstacle_list:
+
+            """ block (can't walk) """ 
             if tile[1].colliderect(self.rect.x + dx, self.rect.y + dy, self.width, self.height):
                 dx = 0
                 dy = 0
        
+        """ point x, y """
         self.rect.x += dx
         self.rect.y += dy
 
         if self.rect.x > 999 and self.rect.y > 360 and level == 0:
             quit()
+        
+        """ checked block is kill block """
         if (self.rect.x >= 330 and self.rect.x <= 357 and self.rect.y == 130) \
             or (self.rect.x == 360 and self.rect.y >= 130 and self.rect.y <= 180) or \
                 self.rect.x >= 330 and self.rect.x <= 360 and self.rect.y == 180 and level == 0:
+            
             """game over"""
             aa = (0, 0, 0)
             screen.fill(aa)
             over = pygame.image.load("picture/Button/over2.png")
             g_1 = pygame.transform.scale(over, (150,100))
+            g_2 = pygame.image.load("picture/Button/restart/restart1.png")
+            g_2 = pygame.transform.scale(g_2, (300,100))
+            g_3 = pygame.image.load("picture/Button/restart/restart2.png")
+            g_3 = pygame.transform.scale(g_3, (300,100))
+            screen.fill(aa)
+            screen.blit(g_1,(428,200))
+            screen.blit(g_2,(351,400))
+            pygame.display.update()
+
 
             """ restart game"""
             while True:
                 mx, my = pygame.mouse.get_pos()
-                screen.blit(g_1,(428,300))
-                pygame.display.update()
+                
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         quit()
-                    if event.type == pygame.MOUSEBUTTONDOWN:
-                        self.rect.x = 10
-                        self.rect.y = 365
-                        main()
+                    
+                    """restart game """
+                    if mx > 365 and mx < 635 and my > 411 and my < 488:
+                        screen.blit(g_3,(351,400))
+                        pygame.display.update()
+                        if event.type == pygame.MOUSEBUTTONDOWN:
+                            self.rect.x = 10
+                            self.rect.y = 365
+                            main()
+                    else:
+
+                        screen.fill(aa)
+                        screen.blit(g_1,(428,200))
+                        screen.blit(g_2,(351,400))
+                        pygame.display.update()
+    
     def update_animation(self):
+
+        """ cooldown animation """
         ANIMATION_COOLDOWN = 100
 
         self.image = self.animation_list[self.action][self.frame_index]
         
+        """ checked index frame """
         if pygame.time.get_ticks() - self.update_time > ANIMATION_COOLDOWN:
             self.update_time = pygame.time.get_ticks()
             self.frame_index += 1
+        
         if self.frame_index >= len(self.animation_list[self.action]):
             self.frame_index = 0
     
@@ -144,17 +202,25 @@ class player():
 
 class World():
     def __init__(self):
+        
+        """ block """
         self.obstacle_list = []
     
     def process_data(self, data):
+    
         for y, row in enumerate(data):
             for x, tile in enumerate(row):
                 if tile >= 0:
                     img = img_list[tile]
+                    
+                    """create rect in block """
                     img_rect = img.get_rect()
                     img_rect.x = x * 30
                     img_rect.y = y * 30
+                    
                     tile_data = (img, img_rect)
+
+                    """ if is block collect in obstacle_list"""
                     if tile > 0:
                         self.obstacle_list.append(tile_data)
     
@@ -162,13 +228,16 @@ class World():
         for tile in self.obstacle_list: 
             screen.blit(tile[0], tile[1])
 
-player = player(20, 375, 1)
+""" call class player """
+player = player(20, 375, 1) # x, y, seed
 
+""" collect to world data """
 world_data = []
 for row in range(ROWS):
     r = [-1] * COLS
     world_data.append(r)
 
+"""read csv """
 with open(f'level{level}_data.csv', newline='') as csvfile:
     reader = csv.reader(csvfile, delimiter=',')               
     for x, row in enumerate(reader):
@@ -195,6 +264,7 @@ Jeerachaya chareonphol
     centerx, centery = screen.get_rect().centerx,screen.get_rect().centery
     deltay = centery + 50
     while run:
+        
         pygame.time.delay(13)
         screen.fill((255,129,0))
         deltay -= 1
@@ -203,6 +273,7 @@ Jeerachaya chareonphol
         pos1 = []
         credit2 = credit.split("\n")
         font = pygame.font.SysFont("Arial", 45)
+        
         for line in credit2:
             msg = font.render(line, True, (255,0,0,))
             text.append(msg)
@@ -210,11 +281,14 @@ Jeerachaya chareonphol
             pos = msg.get_rect(center=(centerx,centery+ deltay + 30*i))
             pos1.append(pos)
             i += 1
+        
         for j in range(i):
             screen.blit(text[j],pos1[j])
         for event in pygame.event.get():
+            
             if event.type == pygame.QUIT:
                 quit()
+            
             if event.type == pygame.MOUSEBUTTONDOWN:
                 return
         pygame.display.update()
@@ -230,6 +304,7 @@ bg6 = pygame.image.load("picture/Button/TJAK (Credit)/TJAKmap.png")
 bg7 = pygame.image.load("picture/Button/BG/orange.png")
 bg8 = pygame.image.load("picture/Player/player_flip.png")
 
+""" transform """
 bg_1 = pygame.transform.scale(bg1,(150,100))
 bg_2 = pygame.transform.scale(bg2,(150,100))
 bg_3 = pygame.transform.scale(bg3,(100,100))
@@ -239,24 +314,42 @@ bg_6 = pygame.transform.scale(bg6,(200,90))
 bg_7 = pygame.transform.scale(bg7,(336,444))
 bg_8 = pygame.transform.scale(bg8,(900,800))
 
+""" Class time """
+class timess():
+    def __init__(self):
+        self.timer = 60
+    def time_count(self):
+        self.timer -= 0.010
+        return self.timer
+
 
 def main():
+    """ call move """
     move_left, move_right, move_top, move_down = False, False, False, False
+    
     run = True
     while run:
+            """call class timess """
+            timer = times.time_count()
+            
             mx, my = pygame.mouse.get_pos()
             clock.tick(FPS)
             draw_bg()
             world.draw()
             player.update_animation()
             player.draw()
-
+            
+            """ time messsage """
+            msg = font.render("%.2s" %str(timer), True, blue)
+            screen.blit(msg, (930,30))
+            
             if move_left or move_right or move_top or move_down:
                 player.update_action(1)
             else:
                 player.update_action(0)
             player.move(move_left, move_right, move_top, move_down)
-        
+
+            """ control """
             for event in  pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
@@ -285,13 +378,23 @@ def main():
                         move_down = False
             pygame.display.update()
     pygame.quit()
+
 ##############################   RUN GAME    #################################
 
+""" called class time """
+times = timess()
+
+""" main run"""
 run = True
 while run:
+    
+    timerr = times.time_count()
     mx, my = pygame.mouse.get_pos()
     clock.tick(FPS)
+    
+    """ intro """
     if start_game == False:
+        """ Event """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -319,19 +422,25 @@ while run:
             screen.blit(bg_1,(415,587))
             screen.blit(bg_3,(880,12))
             screen.blit(bg_5,(6,12))
-
+   
+        """ run game """
     else:
+        blue = (0, 0, 153)
         draw_bg()
         world.draw()
         player.update_animation()
         player.draw()
-
+        msg = font.render("%.2s" %str(timerr), True, blue)
+        screen.blit(msg, (930,30))
+        
+        """ animation """
         if move_left or move_right or move_top or move_down:
             player.update_action(1)
         else:
             player.update_action(0)
         player.move(move_left, move_right, move_top, move_down)
     
+        """ control """
         for event in  pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
@@ -348,7 +457,7 @@ while run:
                 if event.key == pygame.K_s:
                     move_down = True
                
-    
+            """ un presss """
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_a:
                     move_left = False
@@ -358,6 +467,7 @@ while run:
                     move_top = False
                 if event.key == pygame.K_s:
                     move_down = False
+
         pygame.display.update()
 pygame.quit()
 
