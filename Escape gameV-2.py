@@ -178,7 +178,7 @@ credit by
 
 Tanatip singhanon
 
-Akhapop khunkitti
+Akhabhop khunkitti
 
 Ken muraki
 
