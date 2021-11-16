@@ -31,12 +31,14 @@ for x in range(TILE_TYPES):
     img = pygame.transform.scale(img, (30,30))
     img_list.append(img)
 
-BG = (0, 0, 0)
+""" RGB CODE """
+BG = (0, 0, 0) #ดำ
 
+""" BG """
 def draw_bg():
     screen.fill(BG)
 
-
+################################# player ########################################
 
 class player():
     def __init__(self, x, y, speed):
@@ -69,7 +71,7 @@ class player():
         dx = 0
         dy = 0
 
-        if move_left:
+        if move_left and self.rect.x > 0:
             dx = -self.speed
             self.flip = True
             self.direction = -2
@@ -99,9 +101,15 @@ class player():
         if (self.rect.x >= 330 and self.rect.x <= 357 and self.rect.y == 130) \
             or (self.rect.x == 360 and self.rect.y >= 130 and self.rect.y <= 180) or \
                 self.rect.x >= 330 and self.rect.x <= 360 and self.rect.y == 180 and level == 0:
+            """game over"""
+            aa = (0, 0, 0)
+            screen.fill(aa)
             over = pygame.image.load("picture/Button/over2.png")
             g_1 = pygame.transform.scale(over, (150,100))
+
+            """ restart game"""
             while True:
+                mx, my = pygame.mouse.get_pos()
                 screen.blit(g_1,(428,300))
                 pygame.display.update()
                 for event in pygame.event.get():
@@ -110,9 +118,7 @@ class player():
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         self.rect.x = 10
                         self.rect.y = 365
-                        return
-        print(self.rect.x, self.rect.y)
-
+                        main()
     def update_animation(self):
         ANIMATION_COOLDOWN = 100
 
@@ -133,6 +139,8 @@ class player():
 
     def draw(self):
         screen.blit(pygame.transform.flip(self.image, self.flip, False), self.rect)
+
+####################################### world  ########################################
 
 class World():
     def __init__(self):
@@ -231,7 +239,53 @@ bg_6 = pygame.transform.scale(bg6,(200,90))
 bg_7 = pygame.transform.scale(bg7,(336,444))
 bg_8 = pygame.transform.scale(bg8,(900,800))
 
-############################################################################
+
+def main():
+    move_left, move_right, move_top, move_down = False, False, False, False
+    run = True
+    while run:
+            mx, my = pygame.mouse.get_pos()
+            clock.tick(FPS)
+            draw_bg()
+            world.draw()
+            player.update_animation()
+            player.draw()
+
+            if move_left or move_right or move_top or move_down:
+                player.update_action(1)
+            else:
+                player.update_action(0)
+            player.move(move_left, move_right, move_top, move_down)
+        
+            for event in  pygame.event.get():
+                if event.type == pygame.QUIT:
+                    run = False
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_a:
+                        move_left = True
+                    
+                    if event.key == pygame.K_d:
+                        move_right = True
+                    
+                    if event.key == pygame.K_w:
+                        move_top = True
+                
+                    if event.key == pygame.K_s:
+                        move_down = True
+                
+        
+                if event.type == pygame.KEYUP:
+                    if event.key == pygame.K_a:
+                        move_left = False
+                    if event.key == pygame.K_d:
+                        move_right = False
+                    if event.key == pygame.K_w:
+                        move_top = False
+                    if event.key == pygame.K_s:
+                        move_down = False
+            pygame.display.update()
+    pygame.quit()
+##############################   RUN GAME    #################################
 
 run = True
 while run:
@@ -306,3 +360,5 @@ while run:
                     move_down = False
         pygame.display.update()
 pygame.quit()
+
+
