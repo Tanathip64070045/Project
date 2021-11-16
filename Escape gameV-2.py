@@ -1,8 +1,6 @@
 import pygame
 import csv
 
-from pygame import display
-from pygame.constants import MOUSEBUTTONDOWN, QUIT
 
 pygame.init()
 
@@ -109,6 +107,10 @@ class player():
                 for event in pygame.event.get():
                     if event.type == pygame.QUIT:
                         quit()
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        self.rect.x = 10
+                        self.rect.y = 365
+                        return
         print(self.rect.x, self.rect.y)
 
     def update_animation(self):
