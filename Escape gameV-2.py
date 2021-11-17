@@ -149,7 +149,6 @@ class player():
             screen.blit(g_2,(351,400))
             pygame.display.update()
 
-
             """ restart game"""
             while True:
                 mx, my = pygame.mouse.get_pos()
@@ -167,7 +166,7 @@ class player():
                             self.rect.y = 365
                             main()
                     else:
-
+                        """ update screen """
                         screen.fill(aa)
                         screen.blit(g_1,(428,200))
                         screen.blit(g_2,(351,400))
@@ -247,7 +246,9 @@ with open(f'level{level}_data.csv', newline='') as csvfile:
 world = World()
 player2 = world.process_data(world_data)
 
+""" creadit """
 def credit():
+    
     pygame.font.init()
     credit ="""
 credit by
@@ -316,8 +317,11 @@ bg_8 = pygame.transform.scale(bg8,(900,800))
 
 """ Class time """
 class timess():
+    """input time """
     def __init__(self):
         self.timer = 60
+    
+    """count time """
     def time_count(self):
         self.timer -= 0.010
         return self.timer
@@ -326,6 +330,9 @@ class timess():
 def main():
     """ call move """
     move_left, move_right, move_top, move_down = False, False, False, False
+    
+    """ called class time """
+    times = timess()
     
     run = True
     while run:
@@ -340,7 +347,7 @@ def main():
             player.draw()
             
             """ time messsage """
-            msg = font.render("%.2s" %str(timer), True, blue)
+            msg = font.render("%.2s" %str(timer), True, (255,0,0))
             screen.blit(msg, (930,30))
             
             if move_left or move_right or move_top or move_down:
@@ -381,14 +388,10 @@ def main():
 
 ##############################   RUN GAME    #################################
 
-""" called class time """
-times = timess()
-
 """ main run"""
 run = True
 while run:
     
-    timerr = times.time_count()
     mx, my = pygame.mouse.get_pos()
     clock.tick(FPS)
     
@@ -425,50 +428,6 @@ while run:
    
         """ run game """
     else:
-        blue = (0, 0, 153)
-        draw_bg()
-        world.draw()
-        player.update_animation()
-        player.draw()
-        msg = font.render("%.2s" %str(timerr), True, blue)
-        screen.blit(msg, (930,30))
-        
-        """ animation """
-        if move_left or move_right or move_top or move_down:
-            player.update_action(1)
-        else:
-            player.update_action(0)
-        player.move(move_left, move_right, move_top, move_down)
-    
-        """ control """
-        for event in  pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_a:
-                    move_left = True
-                
-                if event.key == pygame.K_d:
-                    move_right = True
-                
-                if event.key == pygame.K_w:
-                    move_top = True
-               
-                if event.key == pygame.K_s:
-                    move_down = True
-               
-            """ un presss """
-            if event.type == pygame.KEYUP:
-                if event.key == pygame.K_a:
-                    move_left = False
-                if event.key == pygame.K_d:
-                    move_right = False
-                if event.key == pygame.K_w:
-                    move_top = False
-                if event.key == pygame.K_s:
-                    move_down = False
-
-        pygame.display.update()
-pygame.quit()
+        main()
 
 
