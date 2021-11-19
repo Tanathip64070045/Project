@@ -1,6 +1,8 @@
 import pygame
 import csv
 
+from pygame import image
+
 
 pygame.init()
 
@@ -276,6 +278,10 @@ bg5 = pygame.image.load("picture/Button/TJAK (Credit)/TJAK.png")
 bg6 = pygame.image.load("picture/Button/TJAK (Credit)/TJAKmap.png")
 bg7 = pygame.image.load("picture/Button/BG/orange.png")
 bg8 = pygame.image.load("picture/Player/player_flip.png")
+wall_paper = pygame.image.load("picture/Button/menu/orange.jpg")
+menu1 = pygame.image.load("picture/Button/menu/menu1.png")
+menu2 = pygame.image.load("picture/Button/menu/menu2.png")
+
 
 """ transform """
 bg_1 = pygame.transform.scale(bg1,(150,100))
@@ -286,7 +292,29 @@ bg_5 = pygame.transform.scale(bg5,(200,90))
 bg_6 = pygame.transform.scale(bg6,(200,90))
 bg_7 = pygame.transform.scale(bg7,(336,444))
 bg_8 = pygame.transform.scale(bg8,(900,800))
+wall_paper = pygame.transform.scale(wall_paper,(1000,63))
+menu1 = pygame.transform.scale(menu1,(58,50))
+menu2 = pygame.transform.scale(menu2,(85,55))
 
+""" MENU """
+def menu():
+    while True:
+        mx, my = pygame.mouse.get_pos()
+        resume = pygame.image.load("picture/Button/menu/resume1.png")
+        resume = pygame.transform.scale(resume,(150,100))
+        restart = pygame.image.load("picture/Button/restart/restart1.png")
+        restart = pygame.transform.scale(restart,(150,100))
+        print(mx, my)
+        screen.blit(resume,(431, 236))
+        screen.blit(restart,(431, 432))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+            if event.type == pygame.MOUSEBUTTONDOWN and mx > 437 and mx < 570 and my > 248 and my < 323:
+                return
+            #   restart
+            # if event.type == pygame.MOUSEBUTTONDOWN and mx > 437 and mx < 570 and my > 433 and my < 530:
+        pygame.display.update()
 
 
 """ Class time """
@@ -351,17 +379,20 @@ while run:
                 timer = times.time_count()
                 
                 mx, my = pygame.mouse.get_pos()
+                print(mx, my)
                 clock.tick(FPS)
                 draw_bg()
                 world.draw()
                 player.update_animation()
                 player.draw()
-                
+                """menu"""
+                screen.blit(wall_paper,(0,0))
+                screen.blit(menu1,(915,10))
                 """ time messsage """
-                msg = font.render("%.2s" %str(timer), True, (255,0,0))
-                msg2 = font.render(str(level), True, (255,0,0))
-                screen.blit(msg, (930,30))
-                screen.blit(msg2, (300,30))
+                msg = font.render("Time : %.2s" %str(timer), True, (255,0,0))
+                msg2 = font.render("Level : %s" %str(level), True, (255,0,0))
+                screen.blit(msg, (10,20))
+                screen.blit(msg2, (320,20))
 
                 if move_left or move_right or move_top or move_down:
                     player.update_action(1)
@@ -409,6 +440,9 @@ while run:
                             move_top = False
                         if event.key == pygame.K_s:
                             move_down = False
+
+                    if event.type == pygame.MOUSEBUTTONDOWN and mx >920 and mx<968 and my > 21 and my < 51:
+                        menu()
                 pygame.display.update()
         pygame.quit()
 
