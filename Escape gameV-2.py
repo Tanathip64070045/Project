@@ -141,51 +141,6 @@ class player(pygame.sprite.Sprite):
             self.rect.x = 10
             self.rect.y = 365
             return True
-        
-        # if self.rect.x > 999 and self.rect.y > 360 and level == 0:
-        #     quit()
-        
-        # """ checked block is kill block """
-        # if (self.rect.x >= 330 and self.rect.x <= 357 and self.rect.y == 130) \
-        #     or (self.rect.x == 360 and self.rect.y >= 130 and self.rect.y <= 180) or \
-        #         self.rect.x >= 330 and self.rect.x <= 360 and self.rect.y == 180 and level == 0:
-            
-        #     """game over"""
-        #     aa = (0, 0, 0)
-        #     screen.fill(aa)
-        #     over = pygame.image.load("picture/Button/over2.png")
-        #     g_1 = pygame.transform.scale(over, (150,100))
-        #     g_2 = pygame.image.load("picture/Button/restart/restart1.png")
-        #     g_2 = pygame.transform.scale(g_2, (300,100))
-        #     g_3 = pygame.image.load("picture/Button/restart/restart2.png")
-        #     g_3 = pygame.transform.scale(g_3, (300,100))
-        #     screen.fill(aa)
-        #     screen.blit(g_1,(428,200))
-        #     screen.blit(g_2,(351,400))
-        #     pygame.display.update()
-
-        #     """ restart game"""
-        #     while True:
-        #         mx, my = pygame.mouse.get_pos()
-                
-        #         for event in pygame.event.get():
-        #             if event.type == pygame.QUIT:
-        #                 quit()
-                    
-        #             """restart game """
-        #             if mx > 365 and mx < 635 and my > 411 and my < 488:
-        #                 screen.blit(g_3,(351,400))
-        #                 pygame.display.update()
-        #                 if event.type == pygame.MOUSEBUTTONDOWN:
-        #                     self.rect.x = 10
-        #                     self.rect.y = 365
-        #                     main()
-        #             else:
-        #                 """ update screen """
-        #                 screen.fill(aa)
-        #                 screen.blit(g_1,(428,200))
-        #                 screen.blit(g_2,(351,400))
-        #                 pygame.display.update()
 
     def update_animation(self):
 
@@ -346,66 +301,6 @@ class timess():
         return self.timer
 
 
-def main():
-    """ call move """
-    move_left, move_right, move_top, move_down = False, False, False, False
-    
-    """ called class time """
-    times = timess()
-    
-    run = True
-    while run:
-            """call class timess """
-            timer = times.time_count()
-            
-            mx, my = pygame.mouse.get_pos()
-            clock.tick(FPS)
-            draw_bg()
-            world.draw()
-            player.update_animation()
-            player.draw()
-            
-            """ time messsage """
-            msg = font.render("%.2s" %str(timer), True, (255,0,0))
-            screen.blit(msg, (930,30))
-            
-            if move_left or move_right or move_top or move_down:
-                player.update_action(1)
-            else:
-                player.update_action(0)
-            player.move(move_left, move_right, move_top, move_down)
-
-            """ control """
-            for event in  pygame.event.get():
-                if event.type == pygame.QUIT:
-                    run = False
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_a:
-                        move_left = True
-                    
-                    if event.key == pygame.K_d:
-                        move_right = True
-                    
-                    if event.key == pygame.K_w:
-                        move_top = True
-                
-                    if event.key == pygame.K_s:
-                        move_down = True
-                
-        
-                if event.type == pygame.KEYUP:
-                    if event.key == pygame.K_a:
-                        move_left = False
-                    if event.key == pygame.K_d:
-                        move_right = False
-                    if event.key == pygame.K_w:
-                        move_top = False
-                    if event.key == pygame.K_s:
-                        move_down = False
-            pygame.display.update()
-    pygame.quit()
-
-
 ##############################   RUN GAME    #################################
 
 """ main run"""
@@ -474,6 +369,7 @@ while run:
                     player.update_action(0)
                 player.move(move_left, move_right, move_top, move_down)
                 level_complete = player.move(move_left, move_right, move_top, move_down)
+                
                 if level_complete:
                     level += 1
                     world_data = reset_level()
@@ -485,6 +381,7 @@ while run:
 
                     world = World()
                     player2 = world.process_data(world_data)
+                
                 """ control """
                 for event in  pygame.event.get():
                     if event.type == pygame.QUIT:
