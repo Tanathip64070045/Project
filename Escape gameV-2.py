@@ -106,7 +106,7 @@ class player(pygame.sprite.Sprite):
         self.width = self.image.get_width()
         self.height = self.image.get_height()
     
-    def move(self, move_left, move_right, move_top, move_down):
+    def move(self, move_left, move_right, move_top, move_down, restart_game):
         dx = 0
         dy = 0
 
@@ -138,11 +138,13 @@ class player(pygame.sprite.Sprite):
         """ point x, y """
         self.rect.x += dx
         self.rect.y += dy
-        print(self.rect.x,self.rect.y)
-        if self.rect.x > 999:
+        #print(self.rect.x,self.rect.y)
+        
+        if self.rect.x > 999 or restart_game == True:
             self.rect.x = 10
             self.rect.y = 365
             return True
+
 
     def update_animation(self):
 
@@ -168,6 +170,12 @@ class player(pygame.sprite.Sprite):
 
     def draw(self):
         screen.blit(pygame.transform.flip(self.image, self.flip, False), self.rect)
+
+    def point1(self):
+        return self.rect.x
+    
+    def point2(self):
+        return self.rect.y
 
 
 ####################################### world  ########################################
@@ -302,16 +310,18 @@ def menu():
         mx, my = pygame.mouse.get_pos()
         resume = pygame.image.load("picture/Button/menu/resume1.png")
         resume = pygame.transform.scale(resume,(150,100))
-        restart = pygame.image.load("picture/Button/restart/restart1.png")
+        restart = pygame.image.load("picture/Button/Exit/ExitN.png")
         restart = pygame.transform.scale(restart,(150,100))
-        print(mx, my)
+        draw_bg()
         screen.blit(resume,(431, 236))
         screen.blit(restart,(431, 432))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
             if event.type == pygame.MOUSEBUTTONDOWN and mx > 437 and mx < 570 and my > 248 and my < 323:
-                return
+                return False
+            if event.type == pygame.MOUSEBUTTONDOWN and mx > 441 and mx< 570 and my > 435 and my < 524:
+                return True
             #   restart
             # if event.type == pygame.MOUSEBUTTONDOWN and mx > 437 and mx < 570 and my > 433 and my < 530:
         pygame.display.update()
@@ -330,10 +340,11 @@ class timess():
 
 
 ##############################   RUN GAME    #################################
+restart_game = False
 
 """ main run"""
-run = True
-while run:
+game = True
+while game:
     
     mx, my = pygame.mouse.get_pos()
     clock.tick(FPS)
@@ -356,6 +367,7 @@ while run:
             if event.type == pygame.MOUSEBUTTONDOWN and mx > 423 and mx < 555 and my > 588 and my < 684:
                 if event.button == 1:
                     start_game = True
+                    run = True
             if event.type == pygame.MOUSEBUTTONDOWN and mx > 888 and mx < 973 and my > 14 and my < 97:
                 if event.button == 1:
                     quit()
@@ -378,8 +390,11 @@ while run:
                 """call class timess """
                 timer = times.time_count()
                 
+                pos_x = player.point1()
+                pos_y = player.point2()
+               
                 mx, my = pygame.mouse.get_pos()
-                print(mx, my)
+
                 clock.tick(FPS)
                 draw_bg()
                 world.draw()
@@ -389,17 +404,18 @@ while run:
                 screen.blit(wall_paper,(0,0))
                 screen.blit(menu1,(915,10))
                 """ time messsage """
-                msg = font.render("Time : %.2s" %str(timer), True, (255,0,0))
+                msg = font.render("Time : %02d" %(int(timer)), True, (255,0,0))
                 msg2 = font.render("Level : %s" %str(level), True, (255,0,0))
                 screen.blit(msg, (10,20))
                 screen.blit(msg2, (320,20))
-
+                if int(timer) == 0:
+                    quit()
                 if move_left or move_right or move_top or move_down:
                     player.update_action(1)
                 else:
                     player.update_action(0)
-                player.move(move_left, move_right, move_top, move_down)
-                level_complete = player.move(move_left, move_right, move_top, move_down)
+                player.move(move_left, move_right, move_top, move_down, restart_game)
+                level_complete = player.move(move_left, move_right, move_top, move_down, restart_game)
                 
                 if level_complete:
                     level += 1
@@ -413,7 +429,22 @@ while run:
                     world = World()
                     player2 = world.process_data(world_data)
                 
-                """ control """
+                if restart_game == True:
+                    level = 0
+                    quit()
+                    # world_data = reset_level()
+                    # with open(f'level{level}_data.csv', newline='') as csvfile:
+                    #     reader = csv.reader(csvfile, delimiter=',')
+                    #     for x, row in enumerate(reader):
+                    #         for y, tile in enumerate(row):
+                    #             world_data[x][y] = int(tile)
+                    # world = World()
+                    # player2 = world.process_data(world_data)
+
+                if event.type == pygame.MOUSEBUTTONDOWN and mx > 920 and mx<968 and my > 21 and my < 51:
+                        menu()
+                        restart_game = menu()
+                
                 for event in  pygame.event.get():
                     if event.type == pygame.QUIT:
                         run = False
@@ -441,9 +472,9 @@ while run:
                         if event.key == pygame.K_s:
                             move_down = False
 
-                    if event.type == pygame.MOUSEBUTTONDOWN and mx >920 and mx<968 and my > 21 and my < 51:
-                        menu()
+                    
                 pygame.display.update()
+                print(pos_x, pos_y)
         pygame.quit()
 
 
