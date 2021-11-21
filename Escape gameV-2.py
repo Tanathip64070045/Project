@@ -1,9 +1,6 @@
 import pygame
 import csv
 
-from pygame import image
-
-
 pygame.init()
 
 """ size display """
@@ -332,7 +329,7 @@ def menu():
             screen.blit(restart,(431, 432))
         pygame.display.update()
 
-def main():
+def main(world_data):
     
     level = 0
     
@@ -386,6 +383,7 @@ def main():
             level_complete = player.move(move_left, move_right, move_top, move_down, restart_game)
             
             if level_complete:
+                break
                 level += 1
                 world_data = reset_level()
                 with open(f'level{level}_data.csv', newline='') as csvfile:
@@ -438,6 +436,7 @@ def main():
             print(pos_x, pos_y)
     pygame.quit()
 
+
 """ Class time """
 class timess():
     """input time """
@@ -456,7 +455,7 @@ restart_game = False
 """ main run"""
 run = True
 while run:
-    
+
     mx, my = pygame.mouse.get_pos()
     clock.tick(FPS)
     
@@ -482,7 +481,6 @@ while run:
             if event.type == pygame.MOUSEBUTTONDOWN and mx > 423 and mx < 555 and my > 588 and my < 684:
                 if event.button == 1:
                     start_game = True
-                    run = True
             
             if event.type == pygame.MOUSEBUTTONDOWN and mx > 888 and mx < 973 and my > 14 and my < 97:
                 if event.button == 1:
@@ -502,5 +500,4 @@ while run:
    
         """ run game """
     else:
-        main()
-
+        main(world_data)
