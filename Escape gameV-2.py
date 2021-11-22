@@ -1,6 +1,9 @@
+from typing import overload
 import pygame
 import csv
 import random as r
+
+from pygame.mouse import get_pos
 pygame.init()
 
 """ size display """
@@ -271,7 +274,7 @@ Jeerachaya chareonphol
                 quit()
             
             if event.type == pygame.MOUSEBUTTONDOWN:
-                return
+                return False
         pygame.display.update()
 
 ######################## INTRO ############################################
@@ -314,7 +317,7 @@ def menu(player, world_data):
         restart2 = pygame.transform.scale(restart2,(150,100))
         
         restart = pygame.transform.scale(restart,(150,100))
-
+        draw_bg()
         screen.blit(resume,(431, 236))
         screen.blit(restart,(431, 432))
         for event in pygame.event.get():
@@ -328,9 +331,35 @@ def menu(player, world_data):
                     if event.button == 1:
                         player.point()
                         return True
-            draw_bg()
             screen.blit(resume,(431, 236))
             screen.blit(restart,(431, 432))
+        pygame.display.update()
+""" game clear"""
+def game_clear():
+    list = []
+    tjak = pygame.image.load("picture/Button/TJAK (Credit)/TJAK.png")
+    tjak = pygame.transform.scale(tjak,(200, 100))
+    font = pygame.font.SysFont("gabriola",45)
+    mess = font.render('Thank you for play this game', True, (255,0,0))
+    count_picture = 0
+    for i in range(25):
+        img = pygame.image.load(f"picture/animation/walk/{i}.png")
+        img = pygame.transform.scale(img, (190,327))
+        list.append(img)
+    while True:
+        pygame.time.delay(42)
+        screen.fill((255, 165, 44))
+        screen.blit(mess,(324, 460))
+        screen.blit(tjak, (398, 235))
+        screen.blit(list[count_picture], (118, 360))
+        count_picture += 1
+        if count_picture == 24:
+            count_picture = 1
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                quit()
         pygame.display.update()
 
 """ Class time """
@@ -420,7 +449,7 @@ while run:
                 screen.blit(msg, (10,20))
                 screen.blit(msg2, (320,20))
                 if count == 10:
-                    quit()
+                    game_clear()
                 if int(timer) == 0:
                     quit()
                 if move_left or move_right or move_top or move_down:
