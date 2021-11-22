@@ -363,6 +363,22 @@ def game_clear(timer):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 quit()
         pygame.display.update()
+        
+""" Over """
+def over():
+    screen.fill((0))
+    game_over = pygame.image.load("picture/Button/over2.png")
+    game_over = pygame.transform.scale(game_over, (150,100))
+    while True:
+        mx, my = pygame.mouse.get_pos()
+        print(mx, my)
+        screen.blit(game_over, (430,300))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                quit()
+        pygame.display.update() 
 
 """ Class time """
 class timess():
