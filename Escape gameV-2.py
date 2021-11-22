@@ -1,6 +1,6 @@
 import pygame
 import csv
-
+import random as r
 pygame.init()
 
 """ size display """
@@ -28,7 +28,7 @@ TILE_SIZE = 30
 TILE_TYPES = 21
 
 """ level map """
-level = 0
+level = r.randint(0,9)
 
 """ start game """
 start_game = False
@@ -337,7 +337,7 @@ def menu(player, world_data):
 class timess():
     """input time """
     def __init__(self):
-        self.timer = 60
+        self.timer = 500
     
     """count time """
     def time_count(self):
@@ -345,6 +345,7 @@ class timess():
         return self.timer
 
 ##############################   RUN GAME    #################################
+count = 0
 restart_game = False
 """ main run"""
 run = True
@@ -398,7 +399,6 @@ while run:
         
         run = True
         while run:
-
                 x = player.pos_x()
                 y = player.pos_y()
                 """call class timess """
@@ -419,6 +419,8 @@ while run:
                 msg2 = font.render("Level : %s" %str(level), True, (255,0,0))
                 screen.blit(msg, (10,20))
                 screen.blit(msg2, (320,20))
+                if count == 10:
+                    quit()
                 if int(timer) == 0:
                     quit()
                 if move_left or move_right or move_top or move_down:
@@ -427,9 +429,12 @@ while run:
                     player.update_action(0)
                 player.move(move_left, move_right, move_top, move_down)
                 level_complete = player.move(move_left, move_right, move_top, move_down)
-                
                 if level_complete:
-                    level += 1
+                    count += 1
+                    if level >= 9:
+                        level = 0
+                    else:
+                        level += 1
                     world_data = reset_level()
                     with open(f'level{level}_data.csv', newline='') as csvfile:
                         reader = csv.reader(csvfile, delimiter=',')               
@@ -471,7 +476,7 @@ while run:
 
                     if event.type == pygame.MOUSEBUTTONDOWN and mx >920 and mx<968 and my > 21 and my < 51:
                         restart_game = menu(player, world_data)
-                print(x, y)
+                #print(x, y)
                 pygame.display.update()
         pygame.quit()
 
