@@ -59,7 +59,7 @@ def draw_bg():
     screen.fill(BG)
 
 def reset_level():
-
+    exit_group.empty()
     data = []
     for row in range(ROWS):
         r = [-1] * COLS
