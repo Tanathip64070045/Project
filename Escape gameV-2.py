@@ -335,12 +335,13 @@ def menu(player, world_data):
             screen.blit(restart,(431, 432))
         pygame.display.update()
 """ game clear"""
-def game_clear():
+def game_clear(timer):
     list = []
     tjak = pygame.image.load("picture/Button/TJAK (Credit)/TJAK.png")
     tjak = pygame.transform.scale(tjak,(200, 100))
     font = pygame.font.SysFont("gabriola",45)
     mess = font.render('Thank you for play this game', True, (255,0,0))
+    time = font.render("Time : %02d" %(int(timer)), True, (255,0,0))
     count_picture = 0
     for i in range(25):
         img = pygame.image.load(f"picture/animation/walk/{i}.png")
@@ -350,6 +351,7 @@ def game_clear():
         pygame.time.delay(42)
         screen.fill((255, 165, 44))
         screen.blit(mess,(324, 460))
+        screen.blit(time,(324, 560))
         screen.blit(tjak, (398, 235))
         screen.blit(list[count_picture], (118, 360))
         count_picture += 1
@@ -449,7 +451,7 @@ while run:
                 screen.blit(msg, (10,20))
                 screen.blit(msg2, (320,20))
                 if count == 10:
-                    game_clear()
+                    game_clear(timer)
                 if int(timer) == 0:
                     quit()
                 if move_left or move_right or move_top or move_down:
