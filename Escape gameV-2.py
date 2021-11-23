@@ -17,6 +17,10 @@ pygame.display.set_caption("Escape Game")
 clock = pygame.time.Clock()
 FPS = 60
 
+""" music """
+music = pygame.mixer.music.load("sound/music.mp3")
+pygame.mixer.music.play(-1)
+
 """ front type """ 
 font = pygame.font.SysFont("picture/font/8-BIT WONDER.TTF", 50)	
 
@@ -31,8 +35,7 @@ TILE_SIZE = 30
 TILE_TYPES = 21
 
 """ level map """
-level = r.randint(0,9)
-
+level = r.randint(0,12)
 """ start game """
 start_game = False
 
@@ -445,7 +448,7 @@ while run:
             if event.type == pygame.MOUSEBUTTONDOWN and mx > 423 and mx < 555 and my > 588 and my < 684:
                 if event.button == 1:
                     start_game = True
-
+                    pygame.mixer.music.stop()
             if event.type == pygame.MOUSEBUTTONDOWN and mx > 888 and mx < 973 and my > 14 and my < 97:
                 if event.button == 1:
                     quit()
@@ -503,7 +506,7 @@ while run:
                     over()
                 if level_complete:
                     count += 1
-                    if level >= 9:
+                    if level >= 12:
                         level = 0
                     else:
                         level += 1
