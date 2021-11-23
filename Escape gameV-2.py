@@ -505,7 +505,7 @@ while run:
                 msg2 = font.render("Level : %s" %str(level), True, (255,0,0))
                 screen.blit(msg, (10,20))
                 screen.blit(msg2, (320,20))
-                if count == 1:
+                if count == 10:
                     music1.stop()
                     game_clear(timer)
                 if int(timer) == 0:
