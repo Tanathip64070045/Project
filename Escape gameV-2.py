@@ -501,6 +501,7 @@ while run:
                 screen.blit(msg, (10,20))
                 screen.blit(msg2, (320,20))
                 if count == 10:
+                    music1.stop()
                     game_clear(timer)
                 if int(timer) == 0:
                     over()
