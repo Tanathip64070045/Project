@@ -360,6 +360,8 @@ def menu(player, world_data):
         pygame.display.update()
 """ game clear"""
 def game_clear(timer):
+    sound_gameclear = pygame.mixer.Sound("sound/handclap.mp3")
+    sound_gameclear.play()
     list = []
     tjak = pygame.image.load("picture/Button/TJAK (Credit)/TJAK.png")
     tjak = pygame.transform.scale(tjak,(200, 100))
@@ -408,10 +410,11 @@ def over():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 quit()
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.type == pygame.MOUSEBUTTONDOWN and mx > 441 and mx< 570 and my > 435 and my < 524:
                 quit()
             screen.blit(restart,(431, 432))
             screen.blit(game_over, (430,300))
+        print(mx,my)
         pygame.display.update() 
 
 """ Class time """
@@ -502,7 +505,7 @@ while run:
                 msg2 = font.render("Level : %s" %str(level), True, (255,0,0))
                 screen.blit(msg, (10,20))
                 screen.blit(msg2, (320,20))
-                if count == 10:
+                if count == 1:
                     music1.stop()
                     game_clear(timer)
                 if int(timer) == 0:
