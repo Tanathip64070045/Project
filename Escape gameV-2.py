@@ -21,6 +21,7 @@ FPS = 60
 music = pygame.mixer.music.load("sound/music.mp3")
 pygame.mixer.music.play(-1)
 
+
 """ front type """ 
 font = pygame.font.SysFont("picture/font/8-BIT WONDER.TTF", 50)	
 
