@@ -20,6 +20,10 @@ FPS = 60
 """ front type """ 
 font = pygame.font.SysFont("picture/font/8-BIT WONDER.TTF", 50)	
 
+""" music """
+music = pygame.mixer.music.load("sound/music.mp3")
+pygame.mixer.music.play(-1)
+
 """ row col """
 ROWS = 25
 COLS = 34
@@ -59,7 +63,7 @@ def draw_bg():
     screen.fill(BG)
 
 def reset_level():
-
+    exit_group.empty()
     data = []
     for row in range(ROWS):
         r = [-1] * COLS
@@ -138,11 +142,15 @@ class player(pygame.sprite.Sprite):
         """ point x, y """
         self.rect.x += dx
         self.rect.y += dy
-        
+        level_complete = False
         if self.rect.x > 999:
             self.rect.x = 10
             self.rect.y = 365
-            return True
+            level_complete = True
+        checkover = False
+        if pygame.sprite.spritecollide(self, exit_group, False):
+            checkover = True
+        return level_complete, checkover
 
     def update_animation(self):
 
@@ -178,9 +186,16 @@ class player(pygame.sprite.Sprite):
     def draw(self):
         screen.blit(pygame.transform.flip(self.image, self.flip, False), self.rect)
 
-
+class Exit(pygame.sprite.Sprite):
+    def __init__(self, img, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.midtop = (x + TILE_SIZE // 2, y + (TILE_SIZE - self.image.get_height()))
+    def update(self):
+        self.rect.x += 0
 ####################################### world  ########################################
-
+exit_group = pygame.sprite.Group()
 class World():
     def __init__(self):
         
@@ -201,8 +216,11 @@ class World():
                     
                     tile_data = (img, img_rect)
                     """ if is block collect in obstacle_list"""
-                    if tile >= 0:
+                    if tile >= 0 and tile < 20:
                         self.obstacle_list.append(tile_data)
+                    elif tile == 20:#create exit
+                        exit1 = Exit(img, x * TILE_SIZE, y * TILE_SIZE)
+                        exit_group.add(exit1)
     
     def draw(self):
         for tile in self.obstacle_list: 
@@ -363,6 +381,30 @@ def game_clear(timer):
             if event.type == pygame.MOUSEBUTTONDOWN:
                 quit()
         pygame.display.update()
+        
+""" Over """
+def over():
+    screen.fill((0))
+    restart = pygame.image.load("picture/Button/Exit/ExitN.png")
+    game_over = pygame.image.load("picture/Button/over2.png")
+    game_over = pygame.transform.scale(game_over, (150,100))
+    restart2 = pygame.image.load("picture/Button/Exit/ExitP.png")
+    restart2 = pygame.transform.scale(restart2,(150,100))
+    restart = pygame.transform.scale(restart,(150,100))
+    while True:
+        mx, my = pygame.mouse.get_pos()
+        screen.blit(restart,(431, 432))
+        screen.blit(game_over, (430,300))
+        if mx > 441 and mx< 570 and my > 435 and my < 524:
+            screen.blit(restart2,(431, 432))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                quit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                quit()
+            screen.blit(restart,(431, 432))
+            screen.blit(game_over, (430,300))
+        pygame.display.update() 
 
 """ Class time """
 class timess():
@@ -407,6 +449,7 @@ while run:
             if event.type == pygame.MOUSEBUTTONDOWN and mx > 423 and mx < 555 and my > 588 and my < 684:
                 if event.button == 1:
                     start_game = True
+                    pygame.mixer.music.stop()
 
             if event.type == pygame.MOUSEBUTTONDOWN and mx > 888 and mx < 973 and my > 14 and my < 97:
                 if event.button == 1:
@@ -434,7 +477,6 @@ while run:
                 y = player.pos_y()
                 """call class timess """
                 timer = times.time_count()
-                
                 mx, my = pygame.mouse.get_pos()
                 
                 clock.tick(FPS)
@@ -442,6 +484,7 @@ while run:
                 world.draw()
                 player.update_animation()
                 player.draw()
+                exit_group.draw(screen)
                 """menu"""
                 screen.blit(wall_paper,(0,0))
                 screen.blit(menu1,(915,10))
@@ -453,13 +496,15 @@ while run:
                 if count == 10:
                     game_clear(timer)
                 if int(timer) == 0:
-                    quit()
+                    over()
                 if move_left or move_right or move_top or move_down:
                     player.update_action(1)
                 else:
                     player.update_action(0)
                 player.move(move_left, move_right, move_top, move_down)
-                level_complete = player.move(move_left, move_right, move_top, move_down)
+                level_complete, checkover = player.move(move_left, move_right, move_top, move_down)
+                if checkover:
+                    over()
                 if level_complete:
                     count += 1
                     if level >= 9:
