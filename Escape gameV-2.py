@@ -390,6 +390,8 @@ def game_clear(timer):
         
 """ Over """
 def over():
+    sound_over = pygame.mixer.Sound("sound/Noob.mp3")
+    sound_over.play()
     screen.fill((0))
     restart = pygame.image.load("picture/Button/Exit/ExitN.png")
     game_over = pygame.image.load("picture/Button/over2.png")
@@ -504,6 +506,7 @@ while run:
                     music1.stop()
                     game_clear(timer)
                 if int(timer) == 0:
+                    music1.stop()
                     over()
                 if move_left or move_right or move_top or move_down:
                     player.update_action(1)
@@ -512,6 +515,7 @@ while run:
                 player.move(move_left, move_right, move_top, move_down)
                 level_complete, checkover = player.move(move_left, move_right, move_top, move_down)
                 if checkover:
+                    music1.stop()
                     over()
                 if level_complete:
                     count += 1
