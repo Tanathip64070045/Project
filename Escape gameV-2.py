@@ -18,7 +18,8 @@ clock = pygame.time.Clock()
 FPS = 60
 
 """ music """
-music = pygame.mixer.music.load("sound/music.mp3")
+pygame.mixer.music.load("sound/Kevin MacLeod  Pixelland  NO COPYRIGHT 8bit Music.mp3")
+pygame.mixer.music.set_volume(0.75)
 pygame.mixer.music.play(-1)
 
 
@@ -323,6 +324,11 @@ wall_paper = pygame.transform.scale(wall_paper,(1000,63))
 menu1 = pygame.transform.scale(menu1,(58,50))
 menu2 = pygame.transform.scale(menu2,(85,55))
 
+"""sound"""
+sound_eff = pygame.mixer.Sound("sound/Click.wav")
+sound_eff.set_volume(50)
+music1 = pygame.mixer.Sound("sound/Tristan Lohengrin  Happy 8bit Loop 01  NO COPYRIGHT 8bit Music.mp3")
+music1.set_volume(5)
 """ MENU """
 def menu(player, world_data):
     while True:
@@ -422,8 +428,8 @@ count = 0
 restart_game = False
 """ main run"""
 run = True
-while run:
 
+while run:
     mx, my = pygame.mouse.get_pos()
     clock.tick(FPS)
     
@@ -448,13 +454,16 @@ while run:
             
             if event.type == pygame.MOUSEBUTTONDOWN and mx > 423 and mx < 555 and my > 588 and my < 684:
                 if event.button == 1:
+                    sound_eff.play()
                     start_game = True
                     pygame.mixer.music.stop()
             if event.type == pygame.MOUSEBUTTONDOWN and mx > 888 and mx < 973 and my > 14 and my < 97:
                 if event.button == 1:
+                    sound_eff.play()
                     quit()
             
             if event.type == pygame.MOUSEBUTTONDOWN and mx > 10 and mx < 200 and my > 14 and my < 96:
+                sound_eff.play()
                 credit()
             
             if event.type == pygame.MOUSEBUTTONDOWN and mx > 398 and mx < 621 and my > 142 and my < 542:
@@ -469,16 +478,14 @@ while run:
         """ run game """
     else:
         times = timess()
-        
         run = True
+        music1.play(-1)
         while run:
                 x = player.pos_x()
                 y = player.pos_y()
                 """call class timess """
                 timer = times.time_count()
-                
                 mx, my = pygame.mouse.get_pos()
-                
                 clock.tick(FPS)
                 draw_bg()
                 world.draw()
