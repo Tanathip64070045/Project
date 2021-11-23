@@ -20,6 +20,10 @@ FPS = 60
 """ front type """ 
 font = pygame.font.SysFont("picture/font/8-BIT WONDER.TTF", 50)	
 
+""" music """
+music = pygame.mixer.music.load("sound/music.mp3")
+pygame.mixer.music.play(-1)
+
 """ row col """
 ROWS = 25
 COLS = 34
@@ -445,6 +449,7 @@ while run:
             if event.type == pygame.MOUSEBUTTONDOWN and mx > 423 and mx < 555 and my > 588 and my < 684:
                 if event.button == 1:
                     start_game = True
+                    pygame.mixer.music.stop()
 
             if event.type == pygame.MOUSEBUTTONDOWN and mx > 888 and mx < 973 and my > 14 and my < 97:
                 if event.button == 1:
@@ -472,7 +477,6 @@ while run:
                 y = player.pos_y()
                 """call class timess """
                 timer = times.time_count()
-                
                 mx, my = pygame.mouse.get_pos()
                 
                 clock.tick(FPS)
