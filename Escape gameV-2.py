@@ -414,7 +414,6 @@ def over():
                 quit()
             screen.blit(restart,(431, 432))
             screen.blit(game_over, (430,300))
-        print(mx,my)
         pygame.display.update() 
 
 """ Class time """
@@ -567,6 +566,13 @@ while run:
 
                     if event.type == pygame.MOUSEBUTTONDOWN and mx >920 and mx<968 and my > 21 and my < 51:
                         restart_game = menu(player, world_data)
+ 
+                    if event.type == pygame.MOUSEBUTTONDOWN and mx >920 and mx<968 and my > 21 and my < 51:
+                        move_left = False
+                        move_right = False
+                        move_top = False
+                        move_down = False
+                        player.move(move_left, move_right, move_top, move_down)
                 #print(x, y)
                 pygame.display.update()
         pygame.quit()
