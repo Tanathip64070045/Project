@@ -18,7 +18,7 @@ clock = pygame.time.Clock()
 FPS = 60
 
 """ music """
-pygame.mixer.music.load("sound/Kevin MacLeod  Pixelland  NO COPYRIGHT 8bit Music.mp3")
+pygame.mixer.music.load(f"sound/Kevin MacLeod Pixelland NO COPYRIGHT 8bit Music.wav")
 pygame.mixer.music.set_volume(0.75)
 pygame.mixer.music.play(-1)
 
@@ -327,7 +327,7 @@ menu2 = pygame.transform.scale(menu2,(85,55))
 """sound"""
 sound_eff = pygame.mixer.Sound("sound/Click.wav")
 sound_eff.set_volume(50)
-music1 = pygame.mixer.Sound("sound/Tristan Lohengrin  Happy 8bit Loop 01  NO COPYRIGHT 8bit Music.mp3")
+music1 = pygame.mixer.Sound(f"sound/Tristan Lohengrin Happy 8bit Loop 01 NO COPYRIGHT 8bit Music.wav")
 music1.set_volume(5)
 """ MENU """
 def menu(player, world_data):
