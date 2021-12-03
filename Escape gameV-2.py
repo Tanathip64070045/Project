@@ -420,7 +420,7 @@ def over():
 class timess():
     """input time """
     def __init__(self):
-        self.timer = 500
+        self.timer = 210
     
     """count time """
     def time_count(self):
@@ -573,7 +573,7 @@ while run:
                         move_top = False
                         move_down = False
                         player.move(move_left, move_right, move_top, move_down)
-                #print(x, y)
+                
                 pygame.display.update()
         pygame.quit()
 
